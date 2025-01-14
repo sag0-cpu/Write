@@ -1,13 +1,13 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const button = document.getElementById("start-project-btn"); // Get the start project button
-    const container = document.getElementById("project-container"); // The container for project boxes
+// Add an event listener for the "Start New Project" button
+document.getElementById("start-project-btn").addEventListener("click", function() {
+    // Try to get the container element
+    const container = document.getElementById("project-container");
 
-      // Check if the container was found (Need this otherwise you can't write name) 
+    // Check if the container was found
     if (container) {
         // Create a new div element to represent the project box
         const projectBox = document.createElement("div");
-        projectBox.innerHTML = '<input type="text" placeholder="Enter project name">';
-
+        
         // Add a class to style the project box
         projectBox.classList.add("project-box");
         
@@ -18,14 +18,18 @@ document.addEventListener("DOMContentLoaded", () => {
         
         // Add a class to the input for the blue border style
         projectInput.classList.add("project-input");
+
+        // Append the input to the project box
+        projectBox.appendChild(projectInput);
         
-        // Append the new project box to the container
+        // Append the project box to the container
         container.appendChild(projectBox);
     } else {
         // Log an error if the container wasn't found
         console.error("The container was not found!");
     }
 });
+
 
 
     // When the button is clicked, create a new project box
