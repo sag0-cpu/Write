@@ -28,7 +28,7 @@ document.getElementById("start-project-btn").addEventListener("click", function(
         // Log an error if the container wasn't found
         console.error("The container was not found!");
     }
-);
+});
 
 
 
@@ -62,4 +62,3 @@ document.getElementById("start-project-btn").addEventListener("click", function(
         // Add the new project box to the container
         container.appendChild(projectBox);
     });
-});
