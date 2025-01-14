@@ -89,6 +89,21 @@ button:hover {
     box-shadow: 0 0 10px rgba(0, 85, 179, 0.5); /* Glow effect */
 }
 
+.project-banner {
+    position: fixed; /* Make it stick to the screen */
+    top: 0; /* Place it at the top of the screen */
+    left: 0;
+    width: 100%; /* Make it span the entire width */
+    background-color: #004085; /* Blue background */
+    color: white; /* White text */
+    font-size: 1.5em; /* Large font size */
+    text-align: center; /* Center the text */
+    padding: 15px 0; /* Add padding for height */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Add shadow for depth */
+    z-index: 1000; /* Ensure it's above other elements */
+    animation: fadeOut 3s ease-in-out forwards; /* Add fade-out effect */
+}
+
 input.project-name-input {
   width: 100%;
   padding: 10px;
