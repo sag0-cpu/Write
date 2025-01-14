@@ -25,6 +25,10 @@ document.addEventListener("DOMContentLoaded", () => {
         const saveButton = document.createElement("button");
         saveButton.textContent = "Save Name";
 
+        // Append the input and save button to the project box
+        projectBox.appendChild(input);
+        projectBox.appendChild(saveButton);
+
         // When save button is clicked, save the project name and disable editing
 saveButton.addEventListener("click", () => {
     const projectName = input.value || "Untitled Project"; // Default if no name is entered
@@ -43,9 +47,6 @@ saveButton.addEventListener("click", () => {
     alert(`Project "${projectName}" saved!`); // Show an alert with the project name
 });
 
-        // Append the input and save button to the project box
-        projectBox.appendChild(input);
-        projectBox.appendChild(saveButton);
 
         // Append the project box to the container
         container.appendChild(projectBox);
