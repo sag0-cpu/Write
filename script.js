@@ -33,8 +33,9 @@ document.addEventListener("DOMContentLoaded", () => {
 saveButton.addEventListener("click", () => {
     const projectName = input.value || "Untitled Project"; // Default if no name is entered
     input.disabled = true; // Disable the input field after saving the name
-    
-    // Apply dynamic styles to the project box
+    projectBox.classList.add("project-box-active"); // Style the box
+
+     // Apply dynamic styles to the project box
     projectBox.style.border = "3px solid #004085"; // Apply a bold border
     projectBox.style.backgroundColor = "#d1ecf1"; // Change background color
     projectBox.style.color = "#004085"; // Change text color
@@ -44,7 +45,17 @@ saveButton.addEventListener("click", () => {
     projectBox.style.width = "90%"; // Make it span most of the container
     projectBox.style.margin = "0 auto"; // Center the box horizontally
     
-    alert(`Project "${projectName}" saved!`); // Show an alert with the project name
+    // Remove the input and save button after saving
+    projectBox.innerHTML = `<span>${projectName}</span>`;
+
+    // Create a large banner
+    const banner = document.createElement("div");
+    banner.textContent = `Project "${projectName}" Saved!`; // Display project name
+    banner.classList.add("project-banner"); // Add banner styling class
+
+    // Append the banner to the document body
+    document.body.appendChild(banner);
+    
 });
 
 
