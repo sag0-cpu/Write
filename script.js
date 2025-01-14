@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const button = document.getElementById("start-project-btn"); // Get the start project button
     const container = document.getElementById("project-container"); // The container for project boxes
 
-      // Check if the container was found
+      // Check if the container was found (Need this otherwise you can't write name) 
     if (container) {
         // Create a new div element to represent the project box
         const projectBox = document.createElement("div");
