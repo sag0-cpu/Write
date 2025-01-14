@@ -89,10 +89,9 @@ button:hover {
     box-shadow: 0 0 10px rgba(0, 85, 179, 0.5); /* Glow effect */
 }
 
-.project-banner {
-    margin-top: 50px; /* Increase or decrease for more gap */  
+.project-banner {  
     position: fixed; /* Make it stick to the screen */
-    top: 0; /* Place it at the top of the screen */
+    top: 10px; /* Place it at the top of the screen */
     left: 0;
     width: 100%; /* Make it span the entire width */
     background-color: #004085; /* Blue background */
