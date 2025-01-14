@@ -46,6 +46,25 @@ button:hover {
   background-color: #555;
 }
 
+.project-box {
+    border: 2px solid #007bff; /* Blue border */
+    border-radius: 8px; /* Rounded edges */
+    padding: 10px; /* Space inside the box */
+    margin: 10px 0; /* Spacing between project boxes */
+    background-color: #f0f8ff; /* Light blue background */
+    font-weight: bold; /* Make text bold */
+    text-align: center; /* Center align text */
+    width: 100%; /* Full width of the container */
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+    cursor: pointer; /* Make it look clickable */
+    transition: transform 0.2s, background-color 0.2s; /* Add hover effect */
+}
+
+.project-box:hover {
+    transform: scale(1.02); /* Slightly enlarge on hover */
+    background-color: #e6f7ff; /* Darker blue on hover */
+}
+
 #project-list {
   margin-top: 20px;
 }
