@@ -47,7 +47,6 @@ button:hover {
 }
 
 .project-box {
-    margin-top: 50px; /* Increase or decrease for more gap */  
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -91,6 +90,7 @@ button:hover {
 }
 
 .project-banner {
+    margin-top: 50px; /* Increase or decrease for more gap */  
     position: fixed; /* Make it stick to the screen */
     top: 0; /* Place it at the top of the screen */
     left: 0;
