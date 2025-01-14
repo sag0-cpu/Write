@@ -47,41 +47,46 @@ button:hover {
 }
 
 .project-box {
-    border: 2px solid #007bff; /* Blue border */
-    border-radius: 8px; /* Rounded edges */
-    padding: 10px; /* Space inside the box */
-    margin: 10px 0; /* Spacing between project boxes */
-    background-color: #f0f8ff; /* Light blue background */
-    font-weight: bold; /* Make text bold */
-    text-align: center; /* Center align text */
-    width: 100%; /* Full width of the container */
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
-    cursor: pointer; /* Make it look clickable */
-    transition: transform 0.2s, background-color 0.2s; /* Add hover effect */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 3px solid #004085; /* Bold border */
+    background-color: #d1ecf1; /* Light blue background */
+    color: #004085; /* Dark blue text */
+    font-size: 1.2em; /* Larger text */
+    padding: 10px 20px; /* Padding inside the box */
+    width: 90%; /* Make it span most of the container */
+    margin: 10px auto; /* Center it horizontally */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+    transition: all 0.3s ease-in-out; /* Smooth transition effect */
 }
 
-.project-box:hover {
-    transform: scale(1.02); /* Slightly enlarge on hover */
-    background-color: #e6f7ff; /* Darker blue on hover */
+.project-box input {
+    border: none; /* Remove the border for the input */
+    outline: none; /* Remove the outline on focus */
+    font-size: 1em; /* Match the font size */
+    flex-grow: 1; /* Make the input take up available space */
+    background: transparent; /* Transparent background */
 }
 
-#project-list {
-  margin-top: 20px;
+.project-box button {
+    background-color: #004085; /* Blue background */
+    color: #fff; /* White text */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Rounded corners */
+    padding: 5px 10px; /* Add padding */
+    cursor: pointer; /* Make it clickable */
+    transition: background-color 0.3s ease; /* Smooth hover effect */
 }
 
-.project {
-  background: #fafafa;
-  padding: 15px;
-  margin: 10px 0;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+.project-box button:hover {
+    background-color: #003366; /* Darker blue on hover */
 }
 
-.project:hover {
-  background-color: #f0f0f0;
+.project-box:focus-within {
+    border-color: #0056b3; /* Change border color when focused */
+    box-shadow: 0 0 10px rgba(0, 85, 179, 0.5); /* Glow effect */
 }
 
 input.project-name-input {
