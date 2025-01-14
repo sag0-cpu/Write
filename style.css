@@ -89,18 +89,6 @@ button:hover {
     box-shadow: 0 0 10px rgba(0, 85, 179, 0.5); /* Glow effect */
 }
 
-.project-banner {
-    position: relative; /* Changes the position to normal flow */
-    margin-top: 10px; /* Adjusts the distance from the top of the screen */
-    width: 100%; /* Ensures it spans the full width */
-    background-color: #004085; /* Beautiful blue background */
-    color: white; /* White text */
-    font-size: 1.5em; /* Large text size */
-    text-align: center; /* Centers the text */
-    padding: 15px 0; /* Padding for a nice height */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
-}
-
 input.project-name-input {
   width: 100%;
   padding: 10px;
