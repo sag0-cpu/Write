@@ -1,40 +1,36 @@
-// script.js
+document.addEventListener("DOMContentLoaded", () => {
+    const button = document.getElementById("start-project-btn");
+    const container = document.createElement("div");
+    container.id = "project-container";
+    document.body.appendChild(container);
 
-// Select button and project list container
-const startProjectBtn = document.getElementById('start-project-btn');
-const projectList = document.getElementById('project-list');
+    button.addEventListener("click", () => {
+        // Create a new project box container
+        const projectBox = document.createElement("div");
+        projectBox.className = "project-box";
 
-// Event listener for "Start New Project" button
-startProjectBtn.addEventListener('click', () => {
-  // Create a div for the new project
-  const projectBox = document.createElement('div');
-  projectBox.classList.add('project');
+        // Add an input field to name the project
+        const input = document.createElement("input");
+        input.type = "text";
+        input.placeholder = "Enter project name";
 
-  // Create an input for naming the project
-  const projectInput = document.createElement('input');
-  projectInput.type = 'text';
-  projectInput.classList.add('project-name-input');
-  projectInput.placeholder = 'Enter project name...';
+        // Add a button to save the project name
+        const saveButton = document.createElement("button");
+        saveButton.textContent = "Save Name";
 
-  // Add input to projectBox
-  projectBox.appendChild(projectInput);
+        // Event listener for the save button
+        saveButton.addEventListener("click", () => {
+            const projectName = input.value || "Untitled Project";
+            input.disabled = true; // Disable editing after saving
+            projectBox.classList.add("project-box-active"); // Highlight the project box
+            alert(`Project "${projectName}" saved!`);
+        });
 
-  // Event listener to handle when a name is entered and clicked
-  projectInput.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' && projectInput.value.trim() !== '') {
-      const projectName = projectInput.value.trim();
+        // Append the input and button to the project box
+        projectBox.appendChild(input);
+        projectBox.appendChild(saveButton);
 
-      // Turn input into a clickable project box
-      projectBox.innerHTML = projectName;
-
-      // Add click functionality to go to a new page
-      projectBox.addEventListener('click', () => {
-        // Navigate to a new page (for now, it could be a placeholder)
-        window.location.href = `project.html?name=${encodeURIComponent(projectName)}`;
-      });
-    }
-  });
-
-  // Add the projectBox to the project list
-  projectList.appendChild(projectBox);
+        // Add the project box to the container
+        container.appendChild(projectBox);
+    });
 });
