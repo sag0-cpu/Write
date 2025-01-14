@@ -46,11 +46,8 @@ button:hover {
   background-color: #555;
 }
 
-.start-new-project-container {
-  padding-bottom: 100px; /* Adjust the number as needed */
-}
-
 .project-box {
+    margin-top: 50px; /* Increase or decrease for more gap */  
     display: flex;
     align-items: center;
     justify-content: space-between;
