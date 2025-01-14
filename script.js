@@ -1,36 +1,35 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const button = document.getElementById("start-project-btn");
-    const container = document.createElement("div");
-    container.id = "project-container";
-    document.body.appendChild(container);
+    const button = document.getElementById("start-project-btn"); // Get the start project button
+    const container = document.getElementById("project-container"); // The container for project boxes
 
+    // When the button is clicked, create a new project box
     button.addEventListener("click", () => {
-        // Create a new project box container
+        // Create the new project box container
         const projectBox = document.createElement("div");
-        projectBox.className = "project-box";
+        projectBox.className = "project-box"; // Style the box with 'project-box' class
 
-        // Add an input field to name the project
+        // Create the input field for the project name
         const input = document.createElement("input");
         input.type = "text";
         input.placeholder = "Enter project name";
 
-        // Add a button to save the project name
+        // Create the save button
         const saveButton = document.createElement("button");
         saveButton.textContent = "Save Name";
 
-        // Event listener for the save button
+        // When save button is clicked, save the project name and disable editing
         saveButton.addEventListener("click", () => {
-            const projectName = input.value || "Untitled Project";
-            input.disabled = true; // Disable editing after saving
-            projectBox.classList.add("project-box-active"); // Highlight the project box
-            alert(`Project "${projectName}" saved!`);
+            const projectName = input.value || "Untitled Project"; // Default if no name is entered
+            input.disabled = true; // Disable the input field after saving the name
+            projectBox.classList.add("project-box-active"); // Style the box when name is saved
+            alert(`Project "${projectName}" saved!`); // Show an alert with the project name
         });
 
-        // Append the input and button to the project box
+        // Append the input and save button to the project box
         projectBox.appendChild(input);
         projectBox.appendChild(saveButton);
 
-        // Add the project box to the container
+        // Add the new project box to the container
         container.appendChild(projectBox);
     });
 });
