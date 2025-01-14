@@ -7,6 +7,17 @@ document.addEventListener("DOMContentLoaded", () => {
         // Create a new div element to represent the project box
         const projectBox = document.createElement("div");
         projectBox.innerHTML = '<input type="text" placeholder="Enter project name">';
+
+        // Add a class to style the project box
+        projectBox.classList.add("project-box");
+        
+        // Add an input element for the project name inside the project box
+        const projectInput = document.createElement("input");
+        projectInput.type = "text";
+        projectInput.placeholder = "Enter project name";
+        
+        // Add a class to the input for the blue border style
+        projectInput.classList.add("project-input");
         
         // Append the new project box to the container
         container.appendChild(projectBox);
