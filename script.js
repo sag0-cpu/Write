@@ -29,37 +29,46 @@ document.addEventListener("DOMContentLoaded", () => {
         projectBox.appendChild(input);
         projectBox.appendChild(saveButton);
 
+        // Add the "View Project" button
+        const viewButton = document.createElement("button");
+        viewButton.textContent = "View Project";
+        viewButton.classList.add("view-project-btn");
+
+        // Add an event listener for the view button
+        viewButton.addEventListener("click", () => {
+            openProject(); // Call the `openProject` function when clicked
+        });
+
+        // Append the view button to the project box
+        projectBox.appendChild(viewButton);
+
         // When save button is clicked, save the project name and disable editing
-saveButton.addEventListener("click", () => {
-    const projectName = input.value || "Untitled Project"; // Default if no name is entered
-    input.disabled = true; // Disable the input field after saving the name
-    projectBox.classList.add("project-box-active"); // Style the box
+        saveButton.addEventListener("click", () => {
+            const projectName = input.value || "Untitled Project"; // Default if no name is entered
+            input.disabled = true; // Disable the input field after saving the name
+            projectBox.classList.add("project-box-active"); // Style the box
 
-     // Apply dynamic styles to the project box
-    projectBox.style.border = "3px solid #004085"; // Apply a bold border
-    projectBox.style.backgroundColor = "#d1ecf1"; // Change background color
-    projectBox.style.color = "#004085"; // Change text color
-    projectBox.style.fontSize = "1.2em"; // Make text larger
-    projectBox.style.padding = "15px"; // Add more padding
-    projectBox.style.textAlign = "center"; // Center the text
-    projectBox.style.width = "90%"; // Make it span most of the container
-    projectBox.style.margin = "0 auto"; // Center the box horizontally
-    
-    // Remove the input and save button after saving
-    projectBox.innerHTML = `<span>${projectName}</span>`;
+            // Apply dynamic styles to the project box
+            projectBox.style.border = "3px solid #004085"; // Apply a bold border
+            projectBox.style.backgroundColor = "#d1ecf1"; // Change background color
+            projectBox.style.color = "#004085"; // Change text color
+            projectBox.style.fontSize = "1.2em"; // Make text larger
+            projectBox.style.padding = "15px"; // Add more padding
+            projectBox.style.textAlign = "center"; // Center the text
+            projectBox.style.width = "90%"; // Make it span most of the container
+            projectBox.style.margin = "0 auto"; // Center the box horizontally
 
-    // Create a large banner
-    const banner = document.createElement("div");
-    banner.textContent = `Project "${projectName}" Saved!`; // Display project name
-    banner.classList.add("project-banner"); // Add banner styling class
-
-    // Append the banner to the document body
-    document.body.appendChild(banner);
-    
-});
-
+            // Remove the input and save button after saving
+            projectBox.innerHTML = `<span>${projectName}</span>`;
+            projectBox.appendChild(viewButton); // Re-append the view button
+        });
 
         // Append the project box to the container
         container.appendChild(projectBox);
     });
+
+    // Define the `openProject` function
+    function openProject() {
+        window.location.href = "project.html"; // Replace with your target URL
+    }
 });
