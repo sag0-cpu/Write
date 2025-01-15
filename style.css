@@ -89,6 +89,28 @@ button:hover {
     box-shadow: 0 0 10px rgba(0, 85, 179, 0.5); /* Glow effect */
 }
 
+/* Style for the View Project link (styled as a button) */
+.view-project-link {
+    display: inline-block;
+    background-color: #004085; /* Blue background color */
+    color: white; /* White text color */
+    padding: 10px 20px; /* Padding for size */
+    text-align: center; /* Center the text */
+    text-decoration: none; /* Remove the underline */
+    font-size: 16px; /* Font size */
+    border-radius: 5px; /* Rounded corners */
+    transition: background-color 0.3s ease; /* Smooth transition on hover */
+}
+
+.view-project-link:hover {
+    background-color: #003366; /* Darker blue when hovering */
+    cursor: pointer; /* Pointer cursor to indicate clickability */
+}
+
+.view-project-link:active {
+    background-color: #002244; /* Even darker blue when clicked */
+}
+
 input.project-name-input {
   width: 100%;
   padding: 10px;
