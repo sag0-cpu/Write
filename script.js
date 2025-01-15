@@ -79,3 +79,6 @@ document.addEventListener("DOMContentLoaded", () => {
         container.appendChild(projectBox);
     });
 });
+function openProject(projectName) {
+    alert(`Opening ${projectName}`); // Replace this with actual navigation logic
+}
