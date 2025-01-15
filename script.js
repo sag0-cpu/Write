@@ -84,3 +84,35 @@ document.addEventListener("DOMContentLoaded", () => {
         projectTitle.textContent = `Project: ${projectName}`;
     }
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+    // Get all the checkboxes
+    const researchCheckbox = document.getElementById("research");
+    const planCheckbox = document.getElementById("plan");
+    const writeCheckbox = document.getElementById("write");
+
+    // Load saved state from localStorage
+    if (localStorage.getItem("research")) {
+        researchCheckbox.checked = JSON.parse(localStorage.getItem("research"));
+    }
+    if (localStorage.getItem("plan")) {
+        planCheckbox.checked = JSON.parse(localStorage.getItem("plan"));
+    }
+    if (localStorage.getItem("write")) {
+        writeCheckbox.checked = JSON.parse(localStorage.getItem("write"));
+    }
+
+    // Save the state to localStorage when the checkboxes are changed
+    researchCheckbox.addEventListener("change", () => {
+        localStorage.setItem("research", researchCheckbox.checked);
+    });
+
+    planCheckbox.addEventListener("change", () => {
+        localStorage.setItem("plan", planCheckbox.checked);
+    });
+
+    writeCheckbox.addEventListener("change", () => {
+        localStorage.setItem("write", writeCheckbox.checked);
+    });
+});
+
