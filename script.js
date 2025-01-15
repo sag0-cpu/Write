@@ -73,3 +73,14 @@ document.addEventListener("DOMContentLoaded", () => {
         container.appendChild(projectBox);
     });
 });
+
+// project-page.html
+document.addEventListener("DOMContentLoaded", () => {
+    const params = new URLSearchParams(window.location.search);
+    const projectName = params.get("name") || "Untitled Project"; // Default if no name
+
+    const projectTitle = document.getElementById("project-title");
+    if (projectTitle) {
+        projectTitle.textContent = `Project: ${projectName}`;
+    }
+});
