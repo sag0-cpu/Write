@@ -31,6 +31,17 @@
 
     <!-- Linking the JavaScript file -->
     <script src="script.js" defer></script>
-  
+
+   <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Get the project name from the URL parameters
+            const params = new URLSearchParams(window.location.search);
+            const projectName = params.get("name") || "Untitled Project"; // Default if no name
+
+            // Display the project name in the plan header
+            const planHeader = document.getElementById("plan-header");
+            planHeader.textContent = `PLAN: ${projectName}`;
+        });
+    </script>
 </body>
 </html>
