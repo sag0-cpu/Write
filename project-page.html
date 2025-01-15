@@ -4,23 +4,33 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Project Page</title>
+  <title>Project Plan</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Project Details</h1>
-  <p>Here is the project information...</p>
+  <!-- Header with the centered "PLAN" -->
+    <h1 class="plan-header">PLAN</h1>
 
-  <script>
-  const params = new URLSearchParams(window.location.search);
-  const projectId = params.get("id");
+    <!-- Checklist Section -->
+    <div class="checklist-container">
+        <ul class="checklist">
+            <li>
+                <input type="checkbox" id="research">
+                <label for="research">Research</label>
+            </li>
+            <li>
+                <input type="checkbox" id="plan">
+                <label for="plan">Plan</label>
+            </li>
+            <li>
+                <input type="checkbox" id="write">
+                <label for="write">Write!</label>
+            </li>
+        </ul>
+    </div>
 
-  // Dynamically load project based on projectId
-  if (projectId) {
-    document.body.innerHTML += `<h1>Project ID: ${projectId}</h1>`;
-  } else {
-    document.body.innerHTML = "Project not found.";
-  }
-</script>
+    <!-- Linking the JavaScript file -->
+    <script src="script.js" defer></script>
   
 </body>
 </html>
