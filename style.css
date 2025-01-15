@@ -119,3 +119,60 @@ input.project-name-input {
   border-radius: 5px;
   font-size: 1em;
 }
+
+/* General body styling */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+/* Center the "PLAN" header */
+.plan-header {
+    text-align: center;
+    font-size: 3em;
+    color: #004085;
+    margin-bottom: 30px;
+}
+
+/* Styling the checklist container */
+.checklist-container {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    max-width: 400px;
+}
+
+/* Styling the checklist items */
+.checklist {
+    list-style-type: none;
+    padding: 0;
+}
+
+.checklist li {
+    margin: 10px 0;
+    font-size: 1.2em;
+}
+
+/* Make checkbox labels look clickable */
+.checklist input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+.checklist label {
+    cursor: pointer;
+}
+
+.checklist input[type="checkbox"]:checked + label {
+    text-decoration: line-through;
+    color: #28a745;
+}
+
