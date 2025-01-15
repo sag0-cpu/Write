@@ -30,16 +30,41 @@ document.addEventListener("DOMContentLoaded", () => {
         viewButton.textContent = "View Project";
         viewButton.style.marginLeft = "10px";
 
-        // Add functionality to the save button
-        saveButton.addEventListener("click", () => {
-            const projectName = input.value || "Untitled Project"; // Default name
-            input.disabled = true; // Disable editing after saving
-            projectBox.classList.add("project-box-active");
+        //Updated logic for save button
+       saveButton.addEventListener("click", () => {
+    const projectName = input.value || "Untitled Project"; // Default if no name is entered
+    input.disabled = true; // Disable the input field after saving the name
+    projectBox.classList.add("project-box-active"); // Style the box
 
-            // Remove input and save button after saving
-            projectBox.innerHTML = `<span>${projectName}</span>`;
-            projectBox.appendChild(viewButton);
-        });
+    // Apply dynamic styles to the project box
+    projectBox.style.border = "3px solid #004085";
+    projectBox.style.backgroundColor = "#d1ecf1";
+    projectBox.style.color = "#004085";
+    projectBox.style.fontSize = "1.2em";
+    projectBox.style.padding = "15px";
+    projectBox.style.textAlign = "center";
+    projectBox.style.width = "90%";
+    projectBox.style.margin = "0 auto";
+
+    // Remove the input and save button after saving
+    projectBox.innerHTML = `<span>${projectName}</span>`;
+
+    // Create the "View Project" button dynamically
+    const viewButton = document.createElement("button");
+    viewButton.className = "view-project-btn";
+    viewButton.textContent = "View Project";
+    viewButton.onclick = () => openProject(projectName); // Call openProject with the project name
+
+    // Append the "View Project" button to the project box
+    projectBox.appendChild(viewButton);
+
+    // (Optional) Create a banner for feedback
+    const banner = document.createElement("div");
+    banner.textContent = `Project "${projectName}" Saved!`; // Display project name
+    banner.classList.add("project-banner");
+    document.body.appendChild(banner);
+});
+
 
         // Add functionality to the view project button
         viewButton.addEventListener("click", () => {
