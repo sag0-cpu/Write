@@ -9,39 +9,52 @@
 </head>
 <body>
   <!-- Header with the centered "PLAN" -->
-    <h1 class="plan-header">How to Write Your First Book</h1>
+  <h1 class="plan-header">How to Write Your First Book</h1>
 
-    <!-- Checklist Section -->
-    <div class="checklist-container">
-        <ul class="checklist">
-            <li>
-                <input type="checkbox" id="research">
-                <label for="research">Research</label>
-            </li>
-            <li>
-                <input type="checkbox" id="plan">
-                <label for="plan">Plan</label>
-            </li>
-            <li>
-                <input type="checkbox" id="write">
-                <label for="write">Write!</label>
-            </li>
-        </ul>
-    </div>
+  <!-- Buttons Section -->
+  <div class="button-container" style="text-align: center; margin-top: 30px;">
+      <!-- Research Button -->
+      <button onclick="window.location.href='research.html'" style="margin-right: 20px;">
+          Research
+      </button>
 
-    <!-- Linking the JavaScript file -->
-    <script src="script.js" defer></script>
+      <!-- View Steps Button -->
+      <button onclick="window.location.href='steps.html'" style="margin-left: 20px;">
+          View Steps
+      </button>
+  </div>
 
-   <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            // Get the project name from the URL parameters
-            const params = new URLSearchParams(window.location.search);
-            const projectName = params.get("name") || "Untitled Project"; // Default if no name
+  <!-- Checklist Section -->
+  <div class="checklist-container" style="text-align: center; margin-top: 50px;">
+      <ul class="checklist" style="list-style: none; padding: 0;">
+          <li>
+              <input type="checkbox" id="research">
+              <label for="research">Research</label>
+          </li>
+          <li>
+              <input type="checkbox" id="plan">
+              <label for="plan">Plan</label>
+          </li>
+          <li>
+              <input type="checkbox" id="write">
+              <label for="write">Write!</label>
+          </li>
+      </ul>
+  </div>
 
-            // Display the project name in the plan header
-            const planHeader = document.getElementById("plan-header");
-            planHeader.textContent = `PLAN: ${projectName}`;
-        });
-    </script>
+  <!-- Linking the JavaScript file -->
+  <script src="script.js" defer></script>
+
+  <script>
+      document.addEventListener("DOMContentLoaded", () => {
+          // Get the project name from the URL parameters
+          const params = new URLSearchParams(window.location.search);
+          const projectName = params.get("name") || "Untitled Project"; // Default if no name
+
+          // Display the project name in the plan header
+          const planHeader = document.querySelector(".plan-header");
+          planHeader.textContent = `PLAN: ${projectName}`;
+      });
+  </script>
 </body>
 </html>
