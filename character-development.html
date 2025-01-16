@@ -104,6 +104,19 @@
       outline: none;
       border-color: #007BFF;
     }
+
+    .character-details {
+      max-width: 600px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .character-details h3 {
+      text-align: center;
+    }
   </style>
 </head>
 <body>
@@ -190,6 +203,27 @@
         <input type="text" id="projectName" placeholder="Enter character name" />
         <button class="button" onclick="saveProject()">Save</button>
         <button class="button" onclick="closeSaveProjectModal()">Cancel</button>
+      </div>
+    </div>
+
+    <!-- Character details modal -->
+    <div id="characterDetailsModal" class="modal">
+      <div class="character-details">
+        <h3 id="characterDetailsName"></h3>
+        <p><strong>Role:</strong> <span id="characterDetailsRole"></span></p>
+        <p><strong>Goals & Motivations:</strong> <span id="characterDetailsGoals"></span></p>
+        <p><strong>Strengths & Weaknesses:</strong> <span id="characterDetailsStrengths"></span></p>
+        <p><strong>Backstory:</strong> <span id="characterDetailsBackstory"></span></p>
+        <p><strong>Character Change:</strong> <span id="characterDetailsChange"></span></p>
+        <p><strong>Appearance:</strong> <span id="characterDetailsAppearance"></span></p>
+        <p><strong>Personality:</strong> <span id="characterDetailsPersonality"></span></p>
+        <p><strong>Conflicts:</strong> <span id="characterDetailsConflicts"></span></p>
+        <p><strong>Worldview:</strong> <span id="characterDetailsWorldview"></span></p>
+        <p><strong>Willingness to Sacrifice:</strong> <span id="characterDetailsSacrifice"></span></p>
+        <p><strong>Unique Traits:</strong> <span id="characterDetailsUnique"></span></p>
+        <p><strong>Voice:</strong> <span id="characterDetailsVoice"></span></p>
+        <p><strong>Fear:</strong> <span id="characterDetailsFear"></span></p>
+        <button class="button" onclick="closeCharacterDetails()">Close</button>
       </div>
     </div>
   </div>
@@ -283,19 +317,37 @@
       
       characters.forEach(character => {
         const li = document.createElement('li');
-        li.innerHTML = `
-          <span>${character.name}</span>
-          <div class="project-actions">
-            <button class="button" onclick="viewCharacter('${character.name}')">View</button>
-          </div>
-        `;
+        li.innerHTML = `${character.name} <button class="button" onclick="viewCharacter('${character.name}')">View</button>`;
         characterList.appendChild(li);
       });
     }
 
     function viewCharacter(name) {
-      alert("Viewing character: " + name);
-      // Add a view character function or redirect to a detailed character page if desired
+      const characters = JSON.parse(localStorage.getItem('characters')) || [];
+      const character = characters.find(character => character.name === name);
+
+      if (character) {
+        document.getElementById('characterDetailsName').innerText = character.name;
+        document.getElementById('characterDetailsRole').innerText = character.role;
+        document.getElementById('characterDetailsGoals').innerText = character.goals;
+        document.getElementById('characterDetailsStrengths').innerText = character.strengths;
+        document.getElementById('characterDetailsBackstory').innerText = character.backstory;
+        document.getElementById('characterDetailsChange').innerText = character.change;
+        document.getElementById('characterDetailsAppearance').innerText = character.appearance;
+        document.getElementById('characterDetailsPersonality').innerText = character.personality;
+        document.getElementById('characterDetailsConflicts').innerText = character.conflicts;
+        document.getElementById('characterDetailsWorldview').innerText = character.worldview;
+        document.getElementById('characterDetailsSacrifice').innerText = character.sacrifice;
+        document.getElementById('characterDetailsUnique').innerText = character.unique;
+        document.getElementById('characterDetailsVoice').innerText = character.voice;
+        document.getElementById('characterDetailsFear').innerText = character.fear;
+
+        document.getElementById('characterDetailsModal').style.display = 'flex';
+      }
+    }
+
+    function closeCharacterDetails() {
+      document.getElementById('characterDetailsModal').style.display = 'none';
     }
   </script>
 </body>
