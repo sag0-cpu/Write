@@ -183,3 +183,12 @@ document.addEventListener("DOMContentLoaded", () => {
         saveProject(projectName, projectId);
     });
 });
+
+function resetProjects() {
+  // Assuming your projects are stored in localStorage
+  localStorage.removeItem('projects');  // Removes stored projects from localStorage
+  // Or if you're storing it in a JavaScript array, clear the array
+  projects = [];  // Resets the array
+  displayProjects();  // Function to update the UI with the reset data
+}
+
