@@ -52,26 +52,40 @@
 <body>
   <h1>World-Building Page</h1>
 
-  <!-- Example World-Building Section -->
+  <!-- Section: Where does your story take place? -->
   <div class="example">
-    <h2>Example 1: Describe a Unique Ecosystem</h2>
-    <p>The Enchanted Forest is home to bioluminescent plants that glow softly at night, providing natural light for the creatures that inhabit it. The forest's canopy is so dense that sunlight rarely penetrates, creating a twilight atmosphere during the day.</p>
+    <h2>Where Does Your Story Take Place?</h2>
+    <p><strong>Example:</strong> The story is set on a distant planet covered in endless oceans, with floating cities built on the backs of giant sea creatures. The sky is perpetually stormy, and lightning is harvested as a source of energy.</p>
+    <textarea id="storyPlace" placeholder="Describe where your story takes place..."></textarea>
+    <button class="button" onclick="saveProgress('storyPlace', 'savedStoryPlace')">Save</button>
+    <div id="savedStoryPlace" class="saved-text" style="display: none;">
+      <h3>Your Saved Place:</h3>
+      <p id="displayStoryPlace"></p>
+    </div>
   </div>
 
+  <!-- Section: What are the rules? -->
   <div class="example">
-    <h2>Example 2: Create a Culture or Society</h2>
-    <p>The Sky Nomads are a civilization that lives aboard massive, floating airships. Their society revolves around trade and exploration, and they have unique customs, such as storytelling through aerial acrobatics.</p>
+    <h2>What Are the Rules?</h2>
+    <p><strong>Example:</strong> In this world, no one is allowed to touch the ground. If they do, they are exiled to the storm-ridden wastelands where survival is almost impossible. The floating cities enforce this rule through an intricate surveillance system.</p>
+    <textarea id="storyRules" placeholder="Define the rules of your world..."></textarea>
+    <button class="button" onclick="saveProgress('storyRules', 'savedStoryRules')">Save</button>
+    <div id="savedStoryRules" class="saved-text" style="display: none;">
+      <h3>Your Saved Rules:</h3>
+      <p id="displayStoryRules"></p>
+    </div>
   </div>
 
-  <!-- User Input Section -->
-  <h2>Your World-Building Progress:</h2>
-  <textarea id="userInput" placeholder="Write about your world here..."></textarea>
-  <button class="button" id="saveButton">Save Progress</button>
-
-  <!-- Display Saved Progress -->
-  <div id="savedProgress" class="saved-text" style="display: none;">
-    <h3>Saved Progress:</h3>
-    <p id="displayText"></p>
+  <!-- Section: What happens if someone breaks those rules? -->
+  <div class="example">
+    <h2>What Happens if Someone Breaks Those Rules?</h2>
+    <p><strong>Example:</strong> Those who break the rules are marked with glowing tattoos that reveal their crime to everyone. They are then sent to a high-security prison, which orbits the planet in a decaying satellite.</p>
+    <textarea id="ruleConsequences" placeholder="Describe the consequences of breaking the rules..."></textarea>
+    <button class="button" onclick="saveProgress('ruleConsequences', 'savedRuleConsequences')">Save</button>
+    <div id="savedRuleConsequences" class="saved-text" style="display: none;">
+      <h3>Your Saved Consequences:</h3>
+      <p id="displayRuleConsequences"></p>
+    </div>
   </div>
 
   <!-- Button to navigate back -->
@@ -79,31 +93,38 @@
 
   <script>
     // Save user input to localStorage
-    document.getElementById("saveButton").onclick = function () {
-      const userInput = document.getElementById("userInput").value.trim();
+    function saveProgress(inputId, displayId) {
+      const userInput = document.getElementById(inputId).value.trim();
 
       if (userInput === "") {
         alert("Please write something before saving.");
       } else {
-        localStorage.setItem("worldBuildingProgress", userInput); // Save to localStorage
-        displaySavedProgress(userInput); // Update the saved progress section
+        localStorage.setItem(inputId, userInput); // Save to localStorage
+        displaySavedProgress(inputId, displayId, userInput); // Update the saved progress section
         alert("Progress saved successfully!");
       }
-    };
+    }
 
     // Display saved progress on page load
     window.onload = function () {
-      const savedProgress = localStorage.getItem("worldBuildingProgress");
+      const sections = [
+        { inputId: "storyPlace", displayId: "savedStoryPlace" },
+        { inputId: "storyRules", displayId: "savedStoryRules" },
+        { inputId: "ruleConsequences", displayId: "savedRuleConsequences" },
+      ];
 
-      if (savedProgress) {
-        displaySavedProgress(savedProgress);
-      }
+      sections.forEach(({ inputId, displayId }) => {
+        const savedProgress = localStorage.getItem(inputId);
+        if (savedProgress) {
+          displaySavedProgress(inputId, displayId, savedProgress);
+        }
+      });
     };
 
     // Function to display saved progress
-    function displaySavedProgress(progress) {
-      const savedProgressDiv = document.getElementById("savedProgress");
-      const displayText = document.getElementById("displayText");
+    function displaySavedProgress(inputId, displayId, progress) {
+      const savedProgressDiv = document.getElementById(displayId);
+      const displayText = savedProgressDiv.querySelector("p");
 
       displayText.textContent = progress;
       savedProgressDiv.style.display = "block"; // Make the saved progress visible
