@@ -1,27 +1,96 @@
-<!-- research.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Research Page</title>
+  <title>Research Your Project</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <h1>Research Your Project</h1>
 
-  <!-- Content for the Research Section -->
-  <div class="research-section">
-    <p>Here you can research different aspects of your project.</p>
-    <!-- Add your research-related content here -->
+  <!-- Checklist for Research -->
+  <div class="checklist-container">
+    <!-- World-Building Checklist -->
+    <div class="checklist-section">
+      <h2>World-Building</h2>
+      <ul class="checklist">
+        <li>
+          <input type="checkbox" id="world-setting">
+          <label for="world-setting">Define the setting (time, place, geography).</label>
+        </li>
+        <li>
+          <input type="checkbox" id="world-rules">
+          <label for="world-rules">Establish world rules (technology, magic, laws).</label>
+        </li>
+        <li>
+          <input type="checkbox" id="world-culture">
+          <label for="world-culture">Develop cultures, traditions, and societies.</label>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Character Development Checklist -->
+    <div class="checklist-section">
+      <h2>Character Development</h2>
+      <ul class="checklist">
+        <li>
+          <input type="checkbox" id="character-backstory">
+          <label for="character-backstory">Create backstories for main characters.</label>
+        </li>
+        <li>
+          <input type="checkbox" id="character-goals">
+          <label for="character-goals">Define goals, motivations, and conflicts.</label>
+        </li>
+        <li>
+          <input type="checkbox" id="character-growth">
+          <label for="character-growth">Plan character arcs and growth.</label>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Themes and Motifs Checklist -->
+    <div class="checklist-section">
+      <h2>Themes and Motifs</h2>
+      <ul class="checklist">
+        <li>
+          <input type="checkbox" id="main-theme">
+          <label for="main-theme">Identify the main theme of the story.</label>
+        </li>
+        <li>
+          <input type="checkbox" id="supporting-motifs">
+          <label for="supporting-motifs">Develop supporting motifs and symbols.</label>
+        </li>
+        <li>
+          <input type="checkbox" id="message">
+          <label for="message">Clarify the story's message or takeaway.</label>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Story-Specific Details Checklist -->
+    <div class="checklist-section">
+      <h2>Story-Specific Details</h2>
+      <ul class="checklist">
+        <li>
+          <input type="checkbox" id="story-plot">
+          <label for="story-plot">Outline the major plot points.</label>
+        </li>
+        <li>
+          <input type="checkbox" id="story-subplots">
+          <label for="story-subplots">Create engaging subplots.</label>
+        </li>
+        <li>
+          <input type="checkbox" id="story-tone">
+          <label for="story-tone">Determine the tone and narrative style.</label>
+        </li>
+      </ul>
+    </div>
   </div>
 
-  <!-- Linking back to the plan page -->
-  <a href="project-page.html" class="back-btn">Back to Project Plan</a>
+  <!-- Button to go back to the Dashboard -->
+  <a href="index.html" class="back-btn">Back to Dashboard</a>
 
-  <!-- Linking back to the project page -->
-  <a href="index.html" class="back-btn">Back to Projects</a>
-  
   <script src="script.js" defer></script>
 </body>
 </html>
