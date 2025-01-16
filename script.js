@@ -191,3 +191,15 @@ function resetProjects() {
   displayProjects();  // Function to update the UI with the reset data
 }
 
+document.getElementById('reset-btn').addEventListener('click', () => {
+  // Clear all data in localStorage
+  localStorage.clear();
+
+  // Clear the projects array
+  projects = [];
+
+  // Re-render the empty project list
+  displayProjects();
+
+  alert("All projects have been reset!");
+});
