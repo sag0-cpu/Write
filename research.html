@@ -43,16 +43,17 @@
 
   <script>
     document.getElementById("worldBuildingButton").onclick = function () {
+      // Get the user's input and trim any whitespace
       const progress = document.getElementById("progress").value.trim();
       const errorElement = document.getElementById("error");
 
       if (progress === "") {
-        // Show error message if progress is empty
+        // Show error if input is empty
         errorElement.style.display = "block";
       } else {
-        // Hide error message and save progress to localStorage
+        // Hide error, save progress, and navigate
         errorElement.style.display = "none";
-        localStorage.setItem("progress", progress); // Save progress
+        localStorage.setItem("progress", progress); // Save progress to localStorage
         window.location.href = "world-building.html"; // Navigate to world-building.html
       }
     };
