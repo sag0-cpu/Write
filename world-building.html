@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>World-Building Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    .question-section {
+      margin-bottom: 30px;
+    }
+    .question-title {
+      font-weight: bold;
+      font-size: 1.2em;
+    }
+    .example-box {
+      background-color: #f9f9f9;
+      border-left: 4px solid #007bff;
+      padding: 10px;
+      margin: 10px 0;
+    }
+    .user-input {
+      width: 100%;
+      height: 100px;
+      margin-top: 10px;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      resize: vertical;
+    }
+    button {
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <h1>World-Building Page</h1>
+
+  <!-- Question 1 -->
+  <div class="question-section">
+    <p class="question-title">1. Where does this take place?</p>
+    <div class="example-box">
+      <strong>Example:</strong>  
+      "This takes place in the floating city of Aeria, a metropolis suspended in the sky by ancient, forgotten technology."
+    </div>
+    <textarea class="user-input" id="location-input" placeholder="Write your answer here..."></textarea>
+  </div>
+
+  <!-- Question 2 -->
+  <div class="question-section">
+    <p class="question-title">2. What are the rules of the world?</p>
+    <div class="example-box">
+      <strong>Example:</strong>  
+      "Magic is forbidden, and anyone caught practicing it is immediately exiled to the Wastelands."
+    </div>
+    <textarea class="user-input" id="rules-input" placeholder="Write your answer here..."></textarea>
+  </div>
+
+  <!-- Question 3 -->
+  <div class="question-section">
+    <p class="question-title">3. What happens if someone breaks these rules?</p>
+    <div class="example-box">
+      <strong>Example:</strong>  
+      "If someone is caught using magic, their memories are wiped, and they are forced to work in the city's underbelly, never allowed to see the sky again."
+    </div>
+    <textarea class="user-input" id="consequences-input" placeholder="Write your answer here..."></textarea>
+  </div>
+
+  <button id="save-btn">Save My Answers</button>
+
+  <script>
+    // Load user answers from local storage
+    window.onload = function() {
+      const savedLocation = localStorage.getItem('location');
+      const savedRules = localStorage.getItem('rules');
+      const savedConsequences = localStorage.getItem('consequences');
+
+      if (savedLocation) document.getElementById('location-input').value = savedLocation;
+      if (savedRules) document.getElementById('rules-input').value = savedRules;
+      if (savedConsequences) document.getElementById('consequences-input').value = savedConsequences;
+    };
+
+    // Save user answers to local storage
+    document.getElementById('save-btn').addEventListener('click', () => {
+      const locationAnswer = document.getElementById('location-input').value;
+      const rulesAnswer = document.getElementById('rules-input').value;
+      const consequencesAnswer = document.getElementById('consequences-input').value;
+
+      localStorage.setItem('location', locationAnswer);
+      localStorage.setItem('rules', rulesAnswer);
+      localStorage.setItem('consequences', consequencesAnswer);
+
+      alert('Your answers have been saved!');
+    });
+  </script>
+</body>
+</html>
