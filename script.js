@@ -166,9 +166,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Delete project from localStorage and DOM
     function deleteProject(projectId, projectBox) {
+        // Remove the project from the localStorage array
         const projects = JSON.parse(localStorage.getItem("projects")) || [];
         const updatedProjects = projects.filter((project) => project.id !== projectId);
         localStorage.setItem("projects", JSON.stringify(updatedProjects));
+
+        // Remove the project box from the DOM
         projectBox.remove();
     }
 
