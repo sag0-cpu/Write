@@ -154,9 +154,19 @@ document.addEventListener("DOMContentLoaded", () => {
       window.location.href = `project-page.html?name=${encodeURIComponent(projectName)}`;
     };
 
+    // Create the delete button
+    const deleteButton = document.createElement("button");
+    deleteButton.textContent = "Delete";
+    deleteButton.className = "delete-btn";
+    deleteButton.onclick = () => {
+      projectBox.remove(); // Remove the project box from the DOM
+      saveProjects(); // Update localStorage
+    };
+
     // Add the elements to the project box
     projectBox.appendChild(input);
     projectBox.appendChild(viewButton);
+    projectBox.appendChild(deleteButton);
 
     return projectBox;
   }
@@ -181,4 +191,3 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
-
