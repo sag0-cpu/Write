@@ -19,6 +19,83 @@
     <!-- This is the reset button -->
     <button id="reset-btn">Reset All Projects</button>
 
+    <script>
+  let projects = [];  // Array to store projects
+
+  // Function to start a new project
+  document.getElementById('start-project-btn').addEventListener('click', () => {
+    const projectName = prompt("Enter project name:");  // Prompt to enter the project name
+    if (projectName) {
+      const newProject = {
+        id: Date.now().toString(),  // Unique ID for the project based on timestamp
+        name: projectName
+      };
+      projects.push(newProject);  // Add the new project to the array
+      saveProjects(projects);  // Save the updated list of projects to localStorage
+      displayProjects();  // Re-render the project list
+    }
+  });
+
+  // Function to save projects to localStorage
+  function saveProjects(projects) {
+    localStorage.setItem('projects', JSON.stringify(projects));
+  }
+
+  // Function to display all projects in the container
+  function displayProjects() {
+    const projectContainer = document.getElementById('project-container');
+    projectContainer.innerHTML = '';  // Clear existing projects
+
+    // If there are no projects, show a message
+    if (projects.length === 0) {
+      projectContainer.innerHTML = '<p>No projects available.</p>';
+    }
+
+    // Loop through projects and add them to the DOM
+    projects.forEach(project => {
+      const projectDiv = document.createElement('div');
+      projectDiv.classList.add('project-item');
+      projectDiv.innerHTML = `
+        <p>${project.name}</p>
+        <button onclick="deleteProject('${project.id}')">Delete Project</button>
+      `;
+      projectContainer.appendChild(projectDiv);  // Append the project to the container
+    });
+  }
+
+  // Function to delete a project by ID
+  function deleteProject(projectId) {
+    // Filter out the project by its ID
+    projects = projects.filter(project => project.id !== projectId);
+
+    // Save the updated project list and re-render the projects
+    saveProjects(projects);
+    displayProjects();
+  }
+
+  // Load projects from localStorage when the page loads
+  window.onload = function() {
+    const savedProjects = JSON.parse(localStorage.getItem('projects'));
+    if (savedProjects) {
+      projects = savedProjects;  // Restore projects from localStorage
+      displayProjects();  // Display the restored projects
+    }
+  };
+
+  // Reset all projects and localStorage
+  document.getElementById('reset-btn').addEventListener('click', () => {
+    // Clear all data in localStorage
+    localStorage.clear();
+
+    // Clear the projects array
+    projects = [];
+
+    // Re-render the empty project list
+    displayProjects();
+
+    alert("All projects have been reset!");
+  });
+</script>
     
     <!-- Linking the JavaScript at the end of the body -->
     <script src="script.js" defer></script>
