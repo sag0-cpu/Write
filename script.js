@@ -164,16 +164,15 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.setItem("projects", JSON.stringify(projects));
     }
 
-    // Delete project from localStorage and DOM
-    function deleteProject(projectId, projectBox) {
-        // Remove the project from the localStorage array
-        const projects = JSON.parse(localStorage.getItem("projects")) || [];
-        const updatedProjects = projects.filter((project) => project.id !== projectId);
-        localStorage.setItem("projects", JSON.stringify(updatedProjects));
-
-        // Remove the project box from the DOM
-        projectBox.remove();
-    }
+   function deleteProject(projectId) {
+  if (confirm("Are you sure you want to delete this project?")) {
+    // Proceed with deleting the project
+    let projects = getProjects(); // Your array or storage method
+    projects = projects.filter(project => project.id !== projectId); // Remove the project
+    saveProjects(projects); // Save the updated projects list
+    displayProjects(); // Re-render the updated list
+  }
+}
 
     // Event listener for "Start New Project" button
     startProjectButton.addEventListener("click", () => {
