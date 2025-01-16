@@ -117,77 +117,66 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-  const button = document.getElementById("start-project-btn");
-  const container = document.getElementById("project-container");
+    const startProjectButton = document.getElementById("start-project-btn");
+    const projectContainer = document.getElementById("project-container");
 
-  // Load saved projects from localStorage
-  loadProjects();
-
-  // Add a new project when the button is clicked
-  button.addEventListener("click", () => {
-    const projectBox = createProjectBox();
-    container.appendChild(projectBox);
-
-    // Save projects to localStorage
-    saveProjects();
-  });
-
-  function createProjectBox(name = "Untitled Project") {
-    // Create the project box
-    const projectBox = document.createElement("div");
-    projectBox.className = "project-box";
-
-    // Create the input field for the project name
-    const input = document.createElement("input");
-    input.type = "text";
-    input.value = name;
-    input.classList.add("project-input");
-
-    // Save the project name whenever the user types
-    input.addEventListener("input", saveProjects);
-
-    // Create the view project button
-    const viewButton = document.createElement("button");
-    viewButton.textContent = "View Project";
-    viewButton.onclick = () => {
-      const projectName = input.value || "Untitled Project";
-      window.location.href = `project-page.html?name=${encodeURIComponent(projectName)}`;
-    };
-
-    // Create the delete button
-    const deleteButton = document.createElement("button");
-    deleteButton.textContent = "Delete";
-    deleteButton.className = "delete-btn";
-    deleteButton.onclick = () => {
-      projectBox.remove(); // Remove the project box from the DOM
-      saveProjects(); // Update localStorage
-    };
-
-    // Add the elements to the project box
-    projectBox.appendChild(input);
-    projectBox.appendChild(viewButton);
-    projectBox.appendChild(deleteButton);
-
-    return projectBox;
-  }
-
-  function saveProjects() {
-    const projects = [];
-    const projectBoxes = document.querySelectorAll(".project-box");
-
-    projectBoxes.forEach((box) => {
-      const input = box.querySelector(".project-input");
-      projects.push(input.value || "Untitled Project");
+    // Load saved projects from localStorage
+    const savedProjects = JSON.parse(localStorage.getItem("projects")) || [];
+    savedProjects.forEach((project) => {
+        addProjectToDashboard(project.name, project.id);
     });
 
-    localStorage.setItem("projects", JSON.stringify(projects));
-  }
+    // Function to add a project to the dashboard
+    function addProjectToDashboard(projectName, projectId = Date.now()) {
+        const projectBox = document.createElement("div");
+        projectBox.classList.add("project-box");
+        projectBox.dataset.id = projectId; // Save ID for deletion
 
-  function loadProjects() {
-    const projects = JSON.parse(localStorage.getItem("projects")) || [];
-    projects.forEach((name) => {
-      const projectBox = createProjectBox(name);
-      container.appendChild(projectBox);
+        // Project name
+        const projectTitle = document.createElement("span");
+        projectTitle.textContent = projectName || "Untitled Project";
+
+        // View project button
+        const viewButton = document.createElement("button");
+        viewButton.textContent = "View Project";
+        viewButton.addEventListener("click", () => {
+            window.location.href = `project-page.html?name=${encodeURIComponent(projectName)}`;
+        });
+
+        // Delete button
+        const deleteButton = document.createElement("button");
+        deleteButton.textContent = "Delete";
+        deleteButton.addEventListener("click", () => {
+            deleteProject(projectId, projectBox);
+        });
+
+        // Append elements to project box
+        projectBox.appendChild(projectTitle);
+        projectBox.appendChild(viewButton);
+        projectBox.appendChild(deleteButton);
+        projectContainer.appendChild(projectBox);
+    }
+
+    // Save project to localStorage
+    function saveProject(projectName, projectId) {
+        const projects = JSON.parse(localStorage.getItem("projects")) || [];
+        projects.push({ name: projectName, id: projectId });
+        localStorage.setItem("projects", JSON.stringify(projects));
+    }
+
+    // Delete project from localStorage and DOM
+    function deleteProject(projectId, projectBox) {
+        const projects = JSON.parse(localStorage.getItem("projects")) || [];
+        const updatedProjects = projects.filter((project) => project.id !== projectId);
+        localStorage.setItem("projects", JSON.stringify(updatedProjects));
+        projectBox.remove();
+    }
+
+    // Event listener for "Start New Project" button
+    startProjectButton.addEventListener("click", () => {
+        const projectName = prompt("Enter project name:") || "Untitled Project";
+        const projectId = Date.now(); // Unique ID for each project
+        addProjectToDashboard(projectName, projectId);
+        saveProject(projectName, projectId);
     });
-  }
 });
