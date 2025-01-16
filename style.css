@@ -191,4 +191,47 @@ button:hover {
     background-color: #0056b3;
 }
 
+/* Checklist Section */
+.checklist-container {
+  margin: 20px auto;
+  max-width: 800px;
+  padding: 10px;
+}
+
+.checklist-section {
+  margin-bottom: 20px;
+}
+
+.checklist-section h2 {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+.checklist {
+  list-style: none;
+  padding: 0;
+}
+
+.checklist li {
+  margin-bottom: 10px;
+}
+
+.checklist input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+/* Back Button */
+.back-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.back-btn:hover {
+  background-color: #0056b3;
+}
 
