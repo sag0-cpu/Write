@@ -116,3 +116,69 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
+document.addEventListener("DOMContentLoaded", () => {
+  const button = document.getElementById("start-project-btn");
+  const container = document.getElementById("project-container");
+
+  // Load saved projects from localStorage
+  loadProjects();
+
+  // Add a new project when the button is clicked
+  button.addEventListener("click", () => {
+    const projectBox = createProjectBox();
+    container.appendChild(projectBox);
+
+    // Save projects to localStorage
+    saveProjects();
+  });
+
+  function createProjectBox(name = "Untitled Project") {
+    // Create the project box
+    const projectBox = document.createElement("div");
+    projectBox.className = "project-box";
+
+    // Create the input field for the project name
+    const input = document.createElement("input");
+    input.type = "text";
+    input.value = name;
+    input.classList.add("project-input");
+
+    // Save the project name whenever the user types
+    input.addEventListener("input", saveProjects);
+
+    // Create the view project button
+    const viewButton = document.createElement("button");
+    viewButton.textContent = "View Project";
+    viewButton.onclick = () => {
+      const projectName = input.value || "Untitled Project";
+      window.location.href = `project-page.html?name=${encodeURIComponent(projectName)}`;
+    };
+
+    // Add the elements to the project box
+    projectBox.appendChild(input);
+    projectBox.appendChild(viewButton);
+
+    return projectBox;
+  }
+
+  function saveProjects() {
+    const projects = [];
+    const projectBoxes = document.querySelectorAll(".project-box");
+
+    projectBoxes.forEach((box) => {
+      const input = box.querySelector(".project-input");
+      projects.push(input.value || "Untitled Project");
+    });
+
+    localStorage.setItem("projects", JSON.stringify(projects));
+  }
+
+  function loadProjects() {
+    const projects = JSON.parse(localStorage.getItem("projects")) || [];
+    projects.forEach((name) => {
+      const projectBox = createProjectBox(name);
+      container.appendChild(projectBox);
+    });
+  }
+});
+
