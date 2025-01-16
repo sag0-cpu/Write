@@ -116,90 +116,58 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
-document.addEventListener("DOMContentLoaded", () => {
-    const startProjectButton = document.getElementById("start-project-btn");
-    const projectContainer = document.getElementById("project-container");
+let projects = [];  // Array to store projects
 
-    // Load saved projects from localStorage
-    const savedProjects = JSON.parse(localStorage.getItem("projects")) || [];
-    savedProjects.forEach((project) => {
-        addProjectToDashboard(project.name, project.id);
-    });
-
-    // Function to add a project to the dashboard
-    function addProjectToDashboard(projectName, projectId = Date.now()) {
-        const projectBox = document.createElement("div");
-        projectBox.classList.add("project-box");
-        projectBox.dataset.id = projectId; // Save ID for deletion
-
-        // Project name
-        const projectTitle = document.createElement("span");
-        projectTitle.textContent = projectName || "Untitled Project";
-
-        // View project button
-        const viewButton = document.createElement("button");
-        viewButton.textContent = "View Project";
-        viewButton.addEventListener("click", () => {
-            window.location.href = `project-page.html?name=${encodeURIComponent(projectName)}`;
-        });
-
-        // Delete button
-        const deleteButton = document.createElement("button");
-        deleteButton.textContent = "Delete";
-        deleteButton.addEventListener("click", () => {
-            deleteProject(projectId, projectBox);
-        });
-
-        // Append elements to project box
-        projectBox.appendChild(projectTitle);
-        projectBox.appendChild(viewButton);
-        projectBox.appendChild(deleteButton);
-        projectContainer.appendChild(projectBox);
-    }
-
-    // Save project to localStorage
-    function saveProject(projectName, projectId) {
-        const projects = JSON.parse(localStorage.getItem("projects")) || [];
-        projects.push({ name: projectName, id: projectId });
-        localStorage.setItem("projects", JSON.stringify(projects));
-    }
-
-   function deleteProject(projectId) {
-  if (confirm("Are you sure you want to delete this project?")) {
-    // Proceed with deleting the project
-    let projects = getProjects(); // Your array or storage method
-    projects = projects.filter(project => project.id !== projectId); // Remove the project
-    saveProjects(projects); // Save the updated projects list
-    displayProjects(); // Re-render the updated list
+// Function to start a new project
+document.getElementById('start-project-btn').addEventListener('click', () => {
+  const projectName = prompt("Enter project name:");  // Prompt to enter the project name
+  if (projectName) {
+    const newProject = {
+      id: Date.now().toString(),  // Unique ID for the project based on timestamp
+      name: projectName
+    };
+    projects.push(newProject);  // Add the new project to the array
+    saveProjects(projects);  // Save the updated list of projects to localStorage
+    displayProjects();  // Re-render the project list
   }
-}
-
-    // Event listener for "Start New Project" button
-    startProjectButton.addEventListener("click", () => {
-        const projectName = prompt("Enter project name:") || "Untitled Project";
-        const projectId = Date.now(); // Unique ID for each project
-        addProjectToDashboard(projectName, projectId);
-        saveProject(projectName, projectId);
-    });
 });
 
-function resetProjects() {
-  // Assuming your projects are stored in localStorage
-  localStorage.removeItem('projects');  // Removes stored projects from localStorage
-  // Or if you're storing it in a JavaScript array, clear the array
-  projects = [];  // Resets the array
-  displayProjects();  // Function to update the UI with the reset data
+// Function to save projects to localStorage
+function saveProjects(projects) {
+  localStorage.setItem('projects', JSON.stringify(projects));
 }
 
-document.getElementById('reset-btn').addEventListener('click', () => {
-  // Clear all data in localStorage
-  localStorage.clear();
+// Function to display all projects in the container
+function displayProjects() {
+  const projectContainer = document.getElementById('project-container');
+  projectContainer.innerHTML = '';  // Clear existing projects
 
-  // Clear the projects array
-  projects = [];
+  projects.forEach(project => {
+    const projectDiv = document.createElement('div');
+    projectDiv.classList.add('project-item');
+    projectDiv.innerHTML = `
+      <p>${project.name}</p>
+      <button onclick="deleteProject('${project.id}')">Delete Project</button>
+    `;
+    projectContainer.appendChild(projectDiv);  // Append the project to the container
+  });
+}
 
-  // Re-render the empty project list
+// Function to delete a project by ID
+function deleteProject(projectId) {
+  // Filter out the project by its ID
+  projects = projects.filter(project => project.id !== projectId);
+
+  // Save the updated project list and re-render the projects
+  saveProjects(projects);
   displayProjects();
+}
 
-  alert("All projects have been reset!");
-});
+// Load projects from localStorage when the page loads
+window.onload = function() {
+  const savedProjects = JSON.parse(localStorage.getItem('projects'));
+  if (savedProjects) {
+    projects = savedProjects;  // Restore projects from localStorage
+    displayProjects();  // Display the restored projects
+  }
+};
