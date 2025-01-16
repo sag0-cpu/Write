@@ -160,9 +160,9 @@
       });
     }
 
-    // Open the project page (redirect to project-page.html)
+    // Open the project page (relative path)
     function openProject(projectId) {
-      // Pass projectId to the project page or use localStorage to retrieve it
+      // Redirect to project-page.html with the project id as a query parameter
       window.location.href = `project-page.html?id=${projectId}`;
     }
 
