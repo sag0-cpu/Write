@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Research</title>
+  <title>Research Page</title>
   <style>
     .button {
       display: inline-block;
@@ -15,56 +15,112 @@
       border-radius: 5px;
       border: none;
       cursor: pointer;
+      margin-top: 10px;
     }
 
     .button:hover {
       background-color: #0056b3;
     }
 
-    .error {
-      color: red;
-      margin-top: 10px;
-      font-size: 0.9rem;
+    .checklist {
+      list-style: none;
+      padding: 0;
+    }
+
+    .checklist li {
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+    }
+
+    .checklist input[type="checkbox"] {
+      margin-right: 10px;
+    }
+
+    .checklist label {
+      flex: 1;
+    }
+
+    .saved-text {
+      white-space: pre-wrap;
+      margin-top: 20px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background-color: #f9f9f9;
     }
   </style>
 </head>
 <body>
   <h1>Research Page</h1>
+  <p>Use this checklist to track your research progress for your project.</p>
 
-  <!-- Textarea for user progress -->
-  <textarea id="progress" placeholder="Enter your progress here..." rows="5" cols="50"></textarea>
-  <br />
+  <!-- Checklist -->
+  <ul class="checklist">
+    <li>
+      <input type="checkbox" id="worldBuilding">
+      <label for="worldBuilding">World Building</label>
+      <a href="world-building.html" class="button">Go to World Building</a>
+    </li>
+    <li>
+      <input type="checkbox" id="characterDevelopment">
+      <label for="characterDevelopment">Character Development</label>
+      <a href="character-development.html" class="button">Go to Character Development</a>
+    </li>
+    <li>
+      <input type="checkbox" id="themesMotifs">
+      <label for="themesMotifs">Themes and Motifs</label>
+      <a href="themes-and-motifs.html" class="button">Go to Themes and Motifs</a>
+    </li>
+  </ul>
 
-  <!-- Error message -->
-  <p id="error" class="error" style="display: none;">Please enter your progress before continuing.</p>
+  <!-- Save button and display for progress -->
+  <button class="button" onclick="saveProgress()">Save Progress</button>
 
-  <!-- Button to navigate -->
-  <button class="button" id="worldBuildingButton">Go to World-Building</button>
+  <div id="savedProgress" class="saved-text" style="display: none;">
+    <h3>Your Saved Progress:</h3>
+    <p id="displayProgress"></p>
+  </div>
 
   <script>
-    document.getElementById("worldBuildingButton").onclick = function () {
-      // Get the user's input and trim any whitespace
-      const progress = document.getElementById("progress").value.trim();
-      const errorElement = document.getElementById("error");
+    // Save user progress to localStorage
+    function saveProgress() {
+      const checklistItems = [
+        'worldBuilding',
+        'characterDevelopment',
+        'themesMotifs'
+      ];
 
-      if (progress === "") {
-        // Show error if input is empty
-        errorElement.style.display = "block";
-      } else {
-        // Hide error, save progress, and navigate
-        errorElement.style.display = "none";
-        localStorage.setItem("progress", progress); // Save progress to localStorage
-        window.location.href = "world-building.html"; // Navigate to world-building.html
-      }
-    };
+      let progress = {};
 
-    // Load saved progress if it exists
+      checklistItems.forEach(item => {
+        progress[item] = document.getElementById(item).checked;
+      });
+
+      localStorage.setItem('researchProgress', JSON.stringify(progress));
+      displaySavedProgress(progress);
+      alert("Progress saved successfully!");
+    }
+
+    // Display saved progress on page load
     window.onload = function () {
-      const savedProgress = localStorage.getItem("progress");
+      const savedProgress = JSON.parse(localStorage.getItem('researchProgress'));
+
       if (savedProgress) {
-        document.getElementById("progress").value = savedProgress;
+        Object.keys(savedProgress).forEach(item => {
+          document.getElementById(item).checked = savedProgress[item];
+        });
+
+        displaySavedProgress(savedProgress);
       }
     };
+
+    // Function to display saved progress
+    function displaySavedProgress(progress) {
+      const displayProgress = document.getElementById('displayProgress');
+      displayProgress.textContent = JSON.stringify(progress, null, 2);
+      document.getElementById('savedProgress').style.display = "block";
+    }
   </script>
 </body>
 </html>
