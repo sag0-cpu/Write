@@ -54,6 +54,20 @@
       // Example: Redirect (can be changed to actual pages)
       // window.location.href = `${section}.html`;
     }
+    // Save progress in localStorage before navigating
+    document.getElementById("worldBuildingButton").onclick = function () {
+      const progress = document.getElementById("progress").value;
+      localStorage.setItem("progress", progress); // Save progress in localStorage
+      window.location.href = "world-building.html"; // Navigate to world-building.html
+    };
+
+    // Load saved progress if it exists
+    window.onload = function () {
+      const savedProgress = localStorage.getItem("progress");
+      if (savedProgress) {
+        document.getElementById("progress").value = savedProgress;
+      }
+    };
   </script>
 </body>
 </html>
