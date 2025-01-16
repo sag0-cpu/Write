@@ -3,62 +3,58 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Research Your Project</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Research</title>
+  <style>
+    .button {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #007BFF;
+      color: white;
+      text-align: center;
+      text-decoration: none;
+      border-radius: 5px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .button:hover {
+      background-color: #0056b3;
+    }
+
+    .error {
+      color: red;
+      margin-top: 10px;
+      font-size: 0.9rem;
+    }
+  </style>
 </head>
 <body>
-  <h1>Research Your Project</h1>
+  <h1>Research Page</h1>
 
-  <!-- Research Sections with PLAN Buttons -->
-  <div class="sections-container">
-    <!-- World-Building Section -->
-    <div class="section">
-      <h2>World-Building</h2>
-     <button id="worldBuildingButton">Go to World-Building</button>
-<script>
-  document.getElementById('worldBuildingButton').onclick = function () {
-    window.location.href = 'world-building.html';
-  };
-</script>
-    </div>
+  <!-- Textarea for user progress -->
+  <textarea id="progress" placeholder="Enter your progress here..." rows="5" cols="50"></textarea>
+  <br />
 
-    <!-- Character Development Section -->
-    <div class="section">
-      <h2>Character Development</h2>
-      <button onclick="goToSection('character-development')">PLAN</button>
-    </div>
+  <!-- Error message -->
+  <p id="error" class="error" style="display: none;">Please enter your progress before continuing.</p>
 
-    <!-- Themes and Motifs Section -->
-    <div class="section">
-      <h2>Themes and Motifs</h2>
-      <button onclick="goToSection('themes-motifs')">PLAN</button>
-    </div>
-
-    <!-- Story-Specific Details Section -->
-    <div class="section">
-      <h2>Story-Specific Details</h2>
-      <button onclick="goToSection('story-details')">PLAN</button>
-    </div>
-  </div>
-
-  <!-- Button to go back to the Plan page -->
-  <a href="project-page.html" class="back-btn">Back to Plan</a>
-  
-  <!-- Button to go back to the Dashboard -->
-  <a href="index.html" class="back-btn">Back to Dashboard</a>
+  <!-- Button to navigate -->
+  <button class="button" id="worldBuildingButton">Go to World-Building</button>
 
   <script>
-    function goToSection(section) {
-      // Redirect to a new page or dynamically load the section
-      alert(`You clicked PLAN for ${section}`);
-      // Example: Redirect (can be changed to actual pages)
-      // window.location.href = `${section}.html`;
-    }
-    // Save progress in localStorage before navigating
     document.getElementById("worldBuildingButton").onclick = function () {
-      const progress = document.getElementById("progress").value;
-      localStorage.setItem("progress", progress); // Save progress in localStorage
-      window.location.href = "world-building.html"; // Navigate to world-building.html
+      const progress = document.getElementById("progress").value.trim();
+      const errorElement = document.getElementById("error");
+
+      if (progress === "") {
+        // Show error message if progress is empty
+        errorElement.style.display = "block";
+      } else {
+        // Hide error message and save progress to localStorage
+        errorElement.style.display = "none";
+        localStorage.setItem("progress", progress); // Save progress
+        window.location.href = "world-building.html"; // Navigate to world-building.html
+      }
     };
 
     // Load saved progress if it exists
