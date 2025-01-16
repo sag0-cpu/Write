@@ -9,88 +9,43 @@
 <body>
   <h1>Research Your Project</h1>
 
-  <!-- Checklist for Research -->
-  <div class="checklist-container">
-    <!-- World-Building Checklist -->
-    <div class="checklist-section">
+  <!-- Research Sections with PLAN Buttons -->
+  <div class="sections-container">
+    <!-- World-Building Section -->
+    <div class="section">
       <h2>World-Building</h2>
-      <ul class="checklist">
-        <li>
-          <input type="checkbox" id="world-setting">
-          <label for="world-setting">Define the setting (time, place, geography).</label>
-        </li>
-        <li>
-          <input type="checkbox" id="world-rules">
-          <label for="world-rules">Establish world rules (technology, magic, laws).</label>
-        </li>
-        <li>
-          <input type="checkbox" id="world-culture">
-          <label for="world-culture">Develop cultures, traditions, and societies.</label>
-        </li>
-      </ul>
+      <button onclick="goToSection('world-building')">PLAN</button>
     </div>
 
-    <!-- Character Development Checklist -->
-    <div class="checklist-section">
+    <!-- Character Development Section -->
+    <div class="section">
       <h2>Character Development</h2>
-      <ul class="checklist">
-        <li>
-          <input type="checkbox" id="character-backstory">
-          <label for="character-backstory">Create backstories for main characters.</label>
-        </li>
-        <li>
-          <input type="checkbox" id="character-goals">
-          <label for="character-goals">Define goals, motivations, and conflicts.</label>
-        </li>
-        <li>
-          <input type="checkbox" id="character-growth">
-          <label for="character-growth">Plan character arcs and growth.</label>
-        </li>
-      </ul>
+      <button onclick="goToSection('character-development')">PLAN</button>
     </div>
 
-    <!-- Themes and Motifs Checklist -->
-    <div class="checklist-section">
+    <!-- Themes and Motifs Section -->
+    <div class="section">
       <h2>Themes and Motifs</h2>
-      <ul class="checklist">
-        <li>
-          <input type="checkbox" id="main-theme">
-          <label for="main-theme">Identify the main theme of the story.</label>
-        </li>
-        <li>
-          <input type="checkbox" id="supporting-motifs">
-          <label for="supporting-motifs">Develop supporting motifs and symbols.</label>
-        </li>
-        <li>
-          <input type="checkbox" id="message">
-          <label for="message">Clarify the story's message or takeaway.</label>
-        </li>
-      </ul>
+      <button onclick="goToSection('themes-motifs')">PLAN</button>
     </div>
 
-    <!-- Story-Specific Details Checklist -->
-    <div class="checklist-section">
+    <!-- Story-Specific Details Section -->
+    <div class="section">
       <h2>Story-Specific Details</h2>
-      <ul class="checklist">
-        <li>
-          <input type="checkbox" id="story-plot">
-          <label for="story-plot">Outline the major plot points.</label>
-        </li>
-        <li>
-          <input type="checkbox" id="story-subplots">
-          <label for="story-subplots">Create engaging subplots.</label>
-        </li>
-        <li>
-          <input type="checkbox" id="story-tone">
-          <label for="story-tone">Determine the tone and narrative style.</label>
-        </li>
-      </ul>
+      <button onclick="goToSection('story-details')">PLAN</button>
     </div>
   </div>
 
   <!-- Button to go back to the Dashboard -->
   <a href="index.html" class="back-btn">Back to Dashboard</a>
 
-  <script src="script.js" defer></script>
+  <script>
+    function goToSection(section) {
+      // Redirect to a new page or dynamically load the section
+      alert(`You clicked PLAN for ${section}`);
+      // Example: Redirect (can be changed to actual pages)
+      // window.location.href = `${section}.html`;
+    }
+  </script>
 </body>
 </html>
