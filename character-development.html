@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Character Design</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+
+    .container {
+      width: 80%;
+      margin: 20px auto;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #007BFF;
+      color: white;
+      text-align: center;
+      text-decoration: none;
+      border-radius: 5px;
+      border: none;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .button:hover {
+      background-color: #0056b3;
+    }
+
+    .question-container {
+      margin: 15px 0;
+    }
+
+    .question-container label {
+      font-weight: bold;
+    }
+
+    .project-list {
+      list-style: none;
+      padding: 0;
+      margin: 20px 0;
+    }
+
+    .project-list li {
+      background-color: #fff;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    #saveProjectModal {
+      display: none;
+      background-color: rgba(0, 0, 0, 0.5);
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      justify-content: center;
+      align-items: center;
+      z-index: 100;
+    }
+
+    .modal-content {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      width: 400px;
+      text-align: center;
+    }
+
+    .modal-content input,
+    .modal-content textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Character Design</h1>
+
+    <!-- Button to add new character form -->
+    <button class="button" onclick="clearForm()">Add New Character</button>
+
+    <div class="question-container">
+      <label for="role">1. What is the character's role in the story?</label>
+      <textarea id="role" rows="3">Example: Protagonist</textarea>
+    </div>
+
+    <div class="question-container">
+      <label for="goals">2. What are the character's goals and motivations?</label>
+      <textarea id="goals" rows="3">Example: To avenge the death of their family</textarea>
+    </div>
+
+    <div class="question-container">
+      <label for="strengths">3. What are the character's strengths and weaknesses?</label>
+      <textarea id="strengths" rows="3">Example: Strengths: Courage. Weaknesses: Impulsive.</textarea>
+    </div>
+
+    <div class="question-container">
+      <label for="backstory">4. What is the character’s backstory?</label>
+      <textarea id="backstory" rows="3">Example: Grew up in a small village, lost their parents to a raid.</textarea>
+    </div>
+
+    <div class="question-container">
+      <label for="change">5. How does the character change throughout the story?</label>
+      <textarea id="change" rows="3">Example: Learns to trust others and become less vengeful.</textarea>
+    </div>
+
+    <div class="question-container">
+      <label for="appearance">6. What does the character look like?</label>
+      <textarea id="appearance" rows="3">Example: Tall, dark hair, wears a cloak.</textarea>
+    </div>
+
+    <div class="question-container">
+      <label for="personality">7. What is the character’s personality?</label>
+      <textarea id="personality" rows="3">Example: Brave, compassionate but often hot-headed.</textarea>
+    </div>
+
+    <div class="question-container">
+      <label for="conflicts">8. What are the character's internal and external conflicts?</label>
+      <textarea id="conflicts" rows="3">Example: Internal conflict about seeking revenge vs. forgiveness. External conflict with antagonist.</textarea>
+    </div>
+
+    <div class="question-container">
+      <label for="worldview">9. How does the character interact with the world?</label>
+      <textarea id="worldview" rows="3">Example: Distrustful of authority, seeks justice for the oppressed.</textarea>
+    </div>
+
+    <div class="question-container">
+      <label for="sacrifice">10. What is the character’s willingness to sacrifice?</label>
+      <textarea id="sacrifice" rows="3">Example: Willing to sacrifice personal safety to protect others.</textarea>
+    </div>
+
+    <div class="question-container">
+      <label for="unique">11. What makes the character unique?</label>
+      <textarea id="unique" rows="3">Example: A rare magical ability that nobody else understands.</textarea>
+    </div>
+
+    <div class="question-container">
+      <label for="voice">12. What is the character’s voice?</label>
+      <textarea id="voice" rows="3">Example: Speaks in a formal tone, uses few words but has a commanding presence.</textarea>
+    </div>
+
+    <div class="question-container">
+      <label for="fear">13. What does the character fear most?</label>
+      <textarea id="fear" rows="3">Example: Fear of becoming the very thing they despise.</textarea>
+    </div>
+
+    <button class="button" onclick="saveCharacter()">Save Character</button>
+
+    <!-- Saved characters list -->
+    <h2>Saved Characters</h2>
+    <ul id="characterList" class="project-list"></ul>
+
+    <div id="saveProjectModal" class="modal">
+      <div class="modal-content">
+        <h2>Save Your Character</h2>
+        <input type="text" id="projectName" placeholder="Enter character name" />
+        <button class="button" onclick="saveProject()">Save</button>
+        <button class="button" onclick="closeSaveProjectModal()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Load the saved characters when the page loads
+    window.onload = loadCharacters;
+
+    // Clear the form to add a new character
+    function clearForm() {
+      document.getElementById('role').value = '';
+      document.getElementById('goals').value = '';
+      document.getElementById('strengths').value = '';
+      document.getElementById('backstory').value = '';
+      document.getElementById('change').value = '';
+      document.getElementById('appearance').value = '';
+      document.getElementById('personality').value = '';
+      document.getElementById('conflicts').value = '';
+      document.getElementById('worldview').value = '';
+      document.getElementById('sacrifice').value = '';
+      document.getElementById('unique').value = '';
+      document.getElementById('voice').value = '';
+      document.getElementById('fear').value = '';
+    }
+
+    // Collect the character data
+    function saveCharacter() {
+      const characterData = {
+        role: document.getElementById('role').value.trim(),
+        goals: document.getElementById('goals').value.trim(),
+        strengths: document.getElementById('strengths').value.trim(),
+        backstory: document.getElementById('backstory').value.trim(),
+        change: document.getElementById('change').value.trim(),
+        appearance: document.getElementById('appearance').value.trim(),
+        personality: document.getElementById('personality').value.trim(),
+        conflicts: document.getElementById('conflicts').value.trim(),
+        worldview: document.getElementById('worldview').value.trim(),
+        sacrifice: document.getElementById('sacrifice').value.trim(),
+        unique: document.getElementById('unique').value.trim(),
+        voice: document.getElementById('voice').value.trim(),
+        fear: document.getElementById('fear').value.trim()
+      };
+
+      // Open the modal to save the character
+      document.getElementById('saveProjectModal').style.display = 'flex';
+    }
+
+    function closeSaveProjectModal() {
+      document.getElementById('saveProjectModal').style.display = 'none';
+    }
+
+    function saveProject() {
+      const characterName = document.getElementById('projectName').value.trim();
+      
+      if (characterName === "") {
+        alert("Please enter a character name.");
+        return;
+      }
+
+      let characters = JSON.parse(localStorage.getItem('characters')) || [];
+      
+      const characterData = {
+        name: characterName,
+        role: document.getElementById('role').value.trim(),
+        goals: document.getElementById('goals').value.trim(),
+        strengths: document.getElementById('strengths').value.trim(),
+        backstory: document.getElementById('backstory').value.trim(),
+        change: document.getElementById('change').value.trim(),
+        appearance: document.getElementById('appearance').value.trim(),
+        personality: document.getElementById('personality').value.trim(),
+        conflicts: document.getElementById('conflicts').value.trim(),
+        worldview: document.getElementById('worldview').value.trim(),
+        sacrifice: document.getElementById('sacrifice').value.trim(),
+        unique: document.getElementById('unique').value.trim(),
+        voice: document.getElementById('voice').value.trim(),
+        fear: document.getElementById('fear').value.trim()
+      };
+
+      characters.push(characterData);
+      localStorage.setItem('characters', JSON.stringify(characters));
+      
+      closeSaveProjectModal();
+      loadCharacters();
+    }
+
+    function loadCharacters() {
+      const characterList = document.getElementById('characterList');
+      characterList.innerHTML = '';
+
+      const characters = JSON.parse(localStorage.getItem('characters')) || [];
+      
+      characters.forEach(character => {
+        const li = document.createElement('li');
+        li.innerHTML = `
+          <span>${character.name}</span>
+          <div class="project-actions">
+            <button class="button" onclick="viewCharacter('${character.name}')">View</button>
+          </div>
+        `;
+        characterList.appendChild(li);
+      });
+    }
+
+    function viewCharacter(name) {
+      alert("Viewing character: " + name);
+      // Add a view character function or redirect to a detailed character page if desired
+    }
+  </script>
+</body>
+</html>
