@@ -16,61 +16,6 @@
      <!-- This is the delete button -->
     <button onclick="deleteProject('123')">Delete Project</button>
 
-<script>
-  // Sample project data
-  let projects = [];
-
-  // Function to add a project
-  function addProject() {
-    const projectName = prompt("Enter project name:");
-    if (projectName) {
-      const newProject = { id: Date.now().toString(), name: projectName }; // Unique ID based on timestamp
-      projects.push(newProject);
-      saveProjects(projects);
-      displayProjects(projects);
-    }
-  }
-
-  // Save projects to localStorage
-  function saveProjects(projects) {
-    localStorage.setItem('projects', JSON.stringify(projects));
-  }
-
-  // Display projects in the UI
-  function displayProjects(projects) {
-    const projectListContainer = document.getElementById('project-list');
-    projectListContainer.innerHTML = ''; // Clear existing projects
-    projects.forEach(project => {
-      const projectElement = document.createElement('li');
-      projectElement.textContent = project.name;
-      const deleteButton = document.createElement('button');
-      deleteButton.textContent = 'Delete';
-      deleteButton.onclick = () => deleteProject(project.id);
-      projectElement.appendChild(deleteButton);
-      projectListContainer.appendChild(projectElement);
-    });
-  }
-
-  // Function to delete a project
-  function deleteProject(projectId) {
-    projects = projects.filter(project => project.id !== projectId); // Remove project by ID
-    saveProjects(projects); // Update localStorage
-    displayProjects(projects); // Re-render the list
-  }
-
-  // Load projects when the page loads
-  window.onload = function() {
-    const savedProjects = JSON.parse(localStorage.getItem('projects'));
-    if (savedProjects) {
-      projects = savedProjects;
-      displayProjects(projects);
-    }
-  };
-</script>
-
-
-     
-
     <!-- Linking the JavaScript at the end of the body -->
     <script src="script.js" defer></script>
     
