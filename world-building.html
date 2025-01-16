@@ -4,21 +4,110 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>World-Building</title>
+  <style>
+    .button {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #007BFF;
+      color: white;
+      text-align: center;
+      text-decoration: none;
+      border-radius: 5px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .button:hover {
+      background-color: #0056b3;
+    }
+
+    .example {
+      margin-bottom: 20px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background-color: #f9f9f9;
+    }
+
+    textarea {
+      width: 100%;
+      height: 100px;
+      margin-top: 10px;
+      padding: 10px;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .saved-text {
+      white-space: pre-wrap;
+      margin-top: 20px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background-color: #f1f1f1;
+    }
+  </style>
 </head>
 <body>
   <h1>World-Building Page</h1>
 
-  <!-- Display Saved Progress -->
-  <h2>Your Saved Progress:</h2>
-  <div id="savedProgress" style="white-space: pre-wrap; border: 1px solid #ccc; padding: 10px;"></div>
+  <!-- Example World-Building Section -->
+  <div class="example">
+    <h2>Example 1: Describe a Unique Ecosystem</h2>
+    <p>The Enchanted Forest is home to bioluminescent plants that glow softly at night, providing natural light for the creatures that inhabit it. The forest's canopy is so dense that sunlight rarely penetrates, creating a twilight atmosphere during the day.</p>
+  </div>
 
-  <!-- Button to go back -->
-  <a href="research.html" class="button" style="display: inline-block; padding: 10px 20px; background-color: #007BFF; color: white; text-decoration: none; border-radius: 5px;">Go Back to Research</a>
+  <div class="example">
+    <h2>Example 2: Create a Culture or Society</h2>
+    <p>The Sky Nomads are a civilization that lives aboard massive, floating airships. Their society revolves around trade and exploration, and they have unique customs, such as storytelling through aerial acrobatics.</p>
+  </div>
+
+  <!-- User Input Section -->
+  <h2>Your World-Building Progress:</h2>
+  <textarea id="userInput" placeholder="Write about your world here..."></textarea>
+  <button class="button" id="saveButton">Save Progress</button>
+
+  <!-- Display Saved Progress -->
+  <div id="savedProgress" class="saved-text" style="display: none;">
+    <h3>Saved Progress:</h3>
+    <p id="displayText"></p>
+  </div>
+
+  <!-- Button to navigate back -->
+  <a href="research.html" class="button">Go Back to Research</a>
 
   <script>
-    // Retrieve saved progress from localStorage
-    const savedProgress = localStorage.getItem("progress");
-    document.getElementById("savedProgress").innerText = savedProgress || "No progress saved yet.";
+    // Save user input to localStorage
+    document.getElementById("saveButton").onclick = function () {
+      const userInput = document.getElementById("userInput").value.trim();
+
+      if (userInput === "") {
+        alert("Please write something before saving.");
+      } else {
+        localStorage.setItem("worldBuildingProgress", userInput); // Save to localStorage
+        displaySavedProgress(userInput); // Update the saved progress section
+        alert("Progress saved successfully!");
+      }
+    };
+
+    // Display saved progress on page load
+    window.onload = function () {
+      const savedProgress = localStorage.getItem("worldBuildingProgress");
+
+      if (savedProgress) {
+        displaySavedProgress(savedProgress);
+      }
+    };
+
+    // Function to display saved progress
+    function displaySavedProgress(progress) {
+      const savedProgressDiv = document.getElementById("savedProgress");
+      const displayText = document.getElementById("displayText");
+
+      displayText.textContent = progress;
+      savedProgressDiv.style.display = "block"; // Make the saved progress visible
+    }
   </script>
 </body>
 </html>
