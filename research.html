@@ -14,7 +14,12 @@
     <!-- World-Building Section -->
     <div class="section">
       <h2>World-Building</h2>
-      <button onclick="goToSection('world-building')">PLAN</button>
+     <button id="worldBuildingButton">Go to World-Building</button>
+<script>
+  document.getElementById('worldBuildingButton').onclick = function () {
+    window.location.href = 'world-building.html';
+  };
+</script>
     </div>
 
     <!-- Character Development Section -->
