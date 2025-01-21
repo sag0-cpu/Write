@@ -52,16 +52,18 @@
 </head>
 <body>
   <button class="button" onclick="addNewChapter()">Add New Chapter</button>
+  <button class="button" onclick="saveChapters()">Save Chapters</button>
+  <button class="button" onclick="loadChapters()">Load Chapters</button>
 
   <div id="chapterContainer"></div>
 
   <script>
     let chapterCount = 0;
 
-    function addNewChapter() {
+    // Function to add a new chapter
+    function addNewChapter(chapterData = null) {
       chapterCount++;
-      
-      // Create a new section for the chapter
+
       const chapterDiv = document.createElement('div');
       chapterDiv.classList.add('chapter');
       chapterDiv.setAttribute('id', `chapter-${chapterCount}`);
@@ -69,32 +71,66 @@
         <h2>Chapter ${chapterCount}</h2>
         <div class="question">
           <label>What happens in this chapter?</label>
-          <textarea></textarea>
+          <textarea>${chapterData ? chapterData.whatHappens : ''}</textarea>
         </div>
         <div class="question">
           <label>What is the main conflict?</label>
-          <textarea></textarea>
+          <textarea>${chapterData ? chapterData.mainConflict : ''}</textarea>
         </div>
         <div class="question">
           <label>Which characters are involved?</label>
-          <textarea></textarea>
+          <textarea>${chapterData ? chapterData.charactersInvolved : ''}</textarea>
         </div>
         <div class="question">
           <label>What is the resolution?</label>
-          <textarea></textarea>
+          <textarea>${chapterData ? chapterData.resolution : ''}</textarea>
         </div>
         <button class="button remove-button" onclick="removeChapter('chapter-${chapterCount}')">Remove Chapter</button>
       `;
 
-      // Append to the container
       document.getElementById('chapterContainer').appendChild(chapterDiv);
     }
 
+    // Function to remove a chapter
     function removeChapter(chapterId) {
       const chapterToRemove = document.getElementById(chapterId);
       if (chapterToRemove) {
         chapterToRemove.remove();
       }
+    }
+
+    // Function to save chapters to localStorage
+    function saveChapters() {
+      const chapters = [];
+      const chapterElements = document.querySelectorAll('.chapter');
+
+      chapterElements.forEach((chapter, index) => {
+        const textareas = chapter.querySelectorAll('textarea');
+        const chapterData = {
+          number: index + 1,
+          whatHappens: textareas[0].value,
+          mainConflict: textareas[1].value,
+          charactersInvolved: textareas[2].value,
+          resolution: textareas[3].value,
+        };
+        chapters.push(chapterData);
+      });
+
+      localStorage.setItem('chapters', JSON.stringify(chapters));
+      alert('Chapters saved successfully!');
+    }
+
+    // Function to load chapters from localStorage
+    function loadChapters() {
+      const savedChapters = JSON.parse(localStorage.getItem('chapters')) || [];
+      chapterCount = 0; // Reset chapter count
+      document.getElementById('chapterContainer').innerHTML = ''; // Clear current chapters
+
+      savedChapters.forEach(chapter => {
+        addNewChapter(chapter);
+      });
+
+      alert('Chapters loaded successfully!');
     }
   </script>
 </body>
