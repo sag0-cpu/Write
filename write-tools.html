@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Write Tools</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f4f4f4;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    li {
+      background-color: #fff;
+      margin: 10px 0;
+      padding: 10px;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+    }
+    li input[type="checkbox"] {
+      margin-right: 10px;
+    }
+    .button {
+      padding: 10px 20px;
+      margin: 10px;
+      background-color: #007BFF;
+      color: white;
+      text-align: center;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <h1>Chapter Checklist</h1>
+  <ul id="checklist"></ul>
+  <div>
+    <button class="button" onclick="location.href='plan-tools.html'">Back to Plan Page</button>
+    <button class="button" onclick="location.href='dashboard.html'">Back to Dashboard</button>
+  </div>
+  <script>
+    // Load chapter data from localStorage
+    const chapters = JSON.parse(localStorage.getItem('chapters')) || [];
+    const checklist = document.getElementById('checklist');
+
+    // Generate checklist based on chapters
+    chapters.forEach((chapter, index) => {
+      const listItem = document.createElement('li');
+      listItem.innerHTML = `
+        <input type="checkbox" id="chapter-${index}">
+        <label for="chapter-${index}">Complete Chapter ${index + 1}: ${chapter.name || 'Untitled'}</label>
+      `;
+      checklist.appendChild(listItem);
+    });
+
+    // Save checklist progress to localStorage (optional)
+    checklist.addEventListener('change', (event) => {
+      if (event.target.type === 'checkbox') {
+        const chapterIndex = event.target.id.split('-')[1];
+        chapters[chapterIndex].completed = event.target.checked;
+        localStorage.setItem('chapters', JSON.stringify(chapters));
+      }
+    });
+  </script>
+</body>
+</html>
