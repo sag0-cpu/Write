@@ -26,6 +26,20 @@
     .button:hover {
       background-color: #0056b3;
     }
+    .remove-button {
+      background-color: #FF4C4C;
+      margin-top: 10px;
+    }
+    .remove-button:hover {
+      background-color: #CC0000;
+    }
+    .chapter {
+      margin-bottom: 20px;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
     .question {
       margin-bottom: 15px;
     }
@@ -50,6 +64,7 @@
       // Create a new section for the chapter
       const chapterDiv = document.createElement('div');
       chapterDiv.classList.add('chapter');
+      chapterDiv.setAttribute('id', `chapter-${chapterCount}`);
       chapterDiv.innerHTML = `
         <h2>Chapter ${chapterCount}</h2>
         <div class="question">
@@ -68,10 +83,18 @@
           <label>What is the resolution?</label>
           <textarea></textarea>
         </div>
+        <button class="button remove-button" onclick="removeChapter('chapter-${chapterCount}')">Remove Chapter</button>
       `;
 
       // Append to the container
       document.getElementById('chapterContainer').appendChild(chapterDiv);
+    }
+
+    function removeChapter(chapterId) {
+      const chapterToRemove = document.getElementById(chapterId);
+      if (chapterToRemove) {
+        chapterToRemove.remove();
+      }
     }
   </script>
 </body>
