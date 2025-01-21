@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapters</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f4f4f4;
+    }
+    .button {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #007BFF;
+      color: white;
+      text-align: center;
+      text-decoration: none;
+      border-radius: 5px;
+      border: none;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    .button:hover {
+      background-color: #0056b3;
+    }
+    .question {
+      margin-bottom: 15px;
+    }
+    textarea {
+      width: 100%;
+      height: 100px;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+  <button class="button" onclick="addNewChapter()">Add New Chapter</button>
+
+  <div id="chapterContainer"></div>
+
+  <script>
+    let chapterCount = 0;
+
+    function addNewChapter() {
+      chapterCount++;
+      
+      // Create a new section for the chapter
+      const chapterDiv = document.createElement('div');
+      chapterDiv.classList.add('chapter');
+      chapterDiv.innerHTML = `
+        <h2>Chapter ${chapterCount}</h2>
+        <div class="question">
+          <label>What happens in this chapter?</label>
+          <textarea></textarea>
+        </div>
+        <div class="question">
+          <label>What is the main conflict?</label>
+          <textarea></textarea>
+        </div>
+        <div class="question">
+          <label>Which characters are involved?</label>
+          <textarea></textarea>
+        </div>
+        <div class="question">
+          <label>What is the resolution?</label>
+          <textarea></textarea>
+        </div>
+      `;
+
+      // Append to the container
+      document.getElementById('chapterContainer').appendChild(chapterDiv);
+    }
+  </script>
+</body>
+</html>
