@@ -91,6 +91,8 @@
   <div class="container">
     <h1>Dashboard</h1>
     <button class="button" onclick="openCreateProjectModal()">Create New Project</button>
+    <button class="button" onclick="deleteAllProjects()">Delete All Projects</button>
+
     
     <!-- Modal to create a new project -->
     <div id="createProjectModal" class="modal">
@@ -182,6 +184,21 @@
 
     // Load projects when the page is loaded
     window.onload = loadProjects;
+
+    function deleteAllProjects() {
+  if (confirm("Are you sure you want to delete all projects? This action cannot be undone.")) {
+    // Clear projects from localStorage
+    localStorage.removeItem('projects');
+    
+    // Optionally, clear any project-specific data
+    localStorage.removeItem('data');
+
+    // Reload the project list
+    loadProjects();
+    alert("All projects have been deleted.");
+  }
+}
+
   </script>
 </body>
 </html>
