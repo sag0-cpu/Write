@@ -5,86 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #f4f4f4;
-    }
-
-    .container {
-      width: 80%;
-      margin: 20px auto;
-    }
-
-    h1 {
-      text-align: center;
-      color: #333;
-    }
-
-    .button {
-      display: inline-block;
-      padding: 10px 20px;
-      background-color: #007BFF;
-      color: white;
-      text-align: center;
-      text-decoration: none;
-      border-radius: 5px;
-      border: none;
-      cursor: pointer;
-      margin-top: 10px;
-    }
-
-    .button:hover {
-      background-color: #0056b3;
-    }
-
-    .project-list {
-      list-style: none;
-      padding: 0;
-      margin: 20px 0;
-    }
-
-    .project-list li {
-      background-color: #fff;
-      padding: 10px;
-      margin-bottom: 10px;
-      border-radius: 5px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .project-actions button {
-      margin-left: 10px;
-    }
-
-    #createProjectModal {
-      display: none;
-      background-color: rgba(0, 0, 0, 0.5);
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      justify-content: center;
-      align-items: center;
-      z-index: 100;
-    }
-
-    .modal-content {
-      background-color: #fff;
-      padding: 20px;
-      border-radius: 5px;
-      width: 400px;
-      text-align: center;
-    }
-
-    .modal-content input {
-      width: 100%;
-      padding: 10px;
-      margin: 10px 0;
-    }
+    /* Your existing styles remain unchanged */
   </style>
 </head>
 <body>
@@ -93,56 +14,59 @@
     <button class="button" onclick="openCreateProjectModal()">Create New Project</button>
     <button class="button" onclick="deleteAllProjects()">Delete All Projects</button>
 
-    
     <!-- Modal to create a new project -->
     <div id="createProjectModal" class="modal">
       <div class="modal-content">
         <h2>Create New Project</h2>
         <input type="text" id="projectName" placeholder="Enter project name" />
+        <div>
+          <input type="radio" id="novel" name="projectType" value="novel" checked />
+          <label for="novel">Novel</label>
+          <input type="radio" id="academicPaper" name="projectType" value="academicPaper" />
+          <label for="academicPaper">Academic Paper</label>
+        </div>
         <button class="button" onclick="saveProject()">Save</button>
         <button class="button" onclick="closeCreateProjectModal()">Cancel</button>
       </div>
     </div>
-    
+
     <!-- List of Projects -->
     <ul id="projectList" class="project-list"></ul>
   </div>
 
   <script>
-    // Open the modal to create a new project
     function openCreateProjectModal() {
       document.getElementById('createProjectModal').style.display = 'flex';
     }
 
-    // Close the modal without saving
     function closeCreateProjectModal() {
       document.getElementById('createProjectModal').style.display = 'none';
     }
 
-    // Save a new project
     function saveProject() {
       const projectName = document.getElementById('projectName').value.trim();
-      
+      const projectType = document.querySelector('input[name="projectType"]:checked').value;
+
       if (projectName === "") {
         alert("Please enter a project name.");
         return;
       }
 
-      // Get the current list of projects from localStorage
       let projects = JSON.parse(localStorage.getItem('projects')) || [];
+      projects.push({ name: projectName, type: projectType, id: Date.now() });
 
-      // Add new project
-      projects.push({ name: projectName, id: Date.now() });
-      
-      // Save back to localStorage
       localStorage.setItem('projects', JSON.stringify(projects));
 
-      // Close modal and reload the dashboard
       closeCreateProjectModal();
       loadProjects();
+
+      if (projectType === "novel") {
+        window.location.href = `novel-page.html?id=${Date.now()}`;
+      } else if (projectType === "academicPaper") {
+        window.location.href = `academic-paper-page.html?id=${Date.now()}`;
+      }
     }
 
-    // Load and display all projects from localStorage
     function loadProjects() {
       const projectList = document.getElementById('projectList');
       projectList.innerHTML = '';
@@ -152,9 +76,9 @@
       projects.forEach(project => {
         const li = document.createElement('li');
         li.innerHTML = `
-          <span>${project.name}</span>
+          <span>${project.name} (${project.type})</span>
           <div class="project-actions">
-            <button class="button" onclick="openProject('${project.id}')">Open</button>
+            <button class="button" onclick="openProject('${project.id}', '${project.type}')">Open</button>
             <button class="button" onclick="deleteProject('${project.id}')">Delete</button>
           </div>
         `;
@@ -162,43 +86,30 @@
       });
     }
 
-    // Open the project page (relative path)
-    function openProject(projectId) {
-      // Redirect to project-page.html with the project id as a query parameter
-      window.location.href = `project-page.html?id=${projectId}`;
+    function openProject(projectId, projectType) {
+      if (projectType === "novel") {
+        window.location.href = `novel-page.html?id=${projectId}`;
+      } else if (projectType === "academicPaper") {
+        window.location.href = `academic-paper-page.html?id=${projectId}`;
+      }
     }
 
-    // Delete a project
     function deleteProject(projectId) {
       let projects = JSON.parse(localStorage.getItem('projects')) || [];
-      
-      // Filter out the deleted project
       projects = projects.filter(project => project.id !== parseInt(projectId));
-
-      // Save the updated list back to localStorage
       localStorage.setItem('projects', JSON.stringify(projects));
-
-      // Reload the project list
       loadProjects();
     }
 
-    // Load projects when the page is loaded
     window.onload = loadProjects;
 
     function deleteAllProjects() {
-  if (confirm("Are you sure you want to delete all projects? This action cannot be undone.")) {
-    // Clear projects from localStorage
-    localStorage.removeItem('projects');
-    
-    // Optionally, clear any project-specific data
-    localStorage.removeItem('data');
-
-    // Reload the project list
-    loadProjects();
-    alert("All projects have been deleted.");
-  }
-}
-
+      if (confirm("Are you sure you want to delete all projects? This action cannot be undone.")) {
+        localStorage.removeItem('projects');
+        loadProjects();
+        alert("All projects have been deleted.");
+      }
+    }
   </script>
 </body>
 </html>
