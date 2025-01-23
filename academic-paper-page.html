@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Academic Paper</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+
+    .container {
+      width: 80%;
+      margin: 20px auto;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    .section {
+      background-color: #fff;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 5px;
+    }
+
+    .section h2 {
+      margin-top: 0;
+      color: #007BFF;
+    }
+
+    .section textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    .section button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .section button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Academic Paper Workspace</h1>
+
+    <!-- Research Notes Section -->
+    <div class="section">
+      <h2>Research Notes</h2>
+      <textarea id="researchNotes" rows="5" placeholder="Enter your research notes here..."></textarea>
+      <button onclick="saveSection('researchNotes')">Save Notes</button>
+    </div>
+
+    <!-- Outline Section -->
+    <div class="section">
+      <h2>Paper Outline</h2>
+      <textarea id="paperOutline" rows="5" placeholder="Enter your paper outline here..."></textarea>
+      <button onclick="saveSection('paperOutline')">Save Outline</button>
+    </div>
+
+    <!-- References Section -->
+    <div class="section">
+      <h2>References</h2>
+      <textarea id="references" rows="5" placeholder="Enter your references here..."></textarea>
+      <button onclick="saveSection('references')">Save References</button>
+    </div>
+
+    <!-- Export Button -->
+    <div class="section">
+      <h2>Export Paper</h2>
+      <button onclick="exportPaper()">Download Academic Paper</button>
+    </div>
+  </div>
+
+  <script>
+    // Save content for a specific section to localStorage
+    function saveSection(sectionId) {
+      const content = document.getElementById(sectionId).value.trim();
+      if (!content) {
+        alert('Please enter some content before saving.');
+        return;
+      }
+
+      localStorage.setItem(sectionId, content);
+      alert('Content saved successfully.');
+    }
+
+    // Load saved content when the page loads
+    window.onload = function () {
+      const sections = ['researchNotes', 'paperOutline', 'references'];
+      sections.forEach(sectionId => {
+        const savedContent = localStorage.getItem(sectionId);
+        if (savedContent) {
+          document.getElementById(sectionId).value = savedContent;
+        }
+      });
+    };
+
+    // Export the entire academic paper as a text file
+    function exportPaper() {
+      const researchNotes = document.getElementById('researchNotes').value.trim();
+      const paperOutline = document.getElementById('paperOutline').value.trim();
+      const references = document.getElementById('references').value.trim();
+
+      const content = `
+      Academic Paper
+      ==============
+
+      Research Notes:
+      ${researchNotes}
+
+      Paper Outline:
+      ${paperOutline}
+
+      References:
+      ${references}
+      `;
+
+      const blob = new Blob([content], { type: 'text/plain' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'academic_paper.txt';
+      link.click();
+    }
+  </script>
+</body>
+</html>
