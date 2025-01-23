@@ -61,7 +61,7 @@
       loadProjects();
 
       if (projectType === "novel") {
-        window.location.href = `novel-page.html?id=${Date.now()}`;
+        window.location.href = `project-page.html?id=${Date.now()}`;
       } else if (projectType === "academicPaper") {
         window.location.href = `academic-paper-page.html?id=${Date.now()}`;
       }
@@ -88,7 +88,7 @@
 
     function openProject(projectId, projectType) {
       if (projectType === "novel") {
-        window.location.href = `novel-page.html?id=${projectId}`;
+        window.location.href = `project-page.html?id=${projectId}`;
       } else if (projectType === "academicPaper") {
         window.location.href = `academic-paper-page.html?id=${projectId}`;
       }
